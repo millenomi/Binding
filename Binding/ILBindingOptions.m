@@ -14,6 +14,7 @@
 
 @synthesize direction;
 
+
 + optionsWithDefaultValues;
 {
     return [[self new] autorelease];
@@ -65,7 +66,7 @@
     newOptions->allowedThread = [allowedThread retain];
     
     newOptions->direction = direction;
-    
+        
     return newOptions;
 }
 

@@ -25,6 +25,7 @@ typedef enum {
     kILBindingDirectionSourceToTargetOnly,
 } ILBindingDirection;
 
+
 @interface ILBindingOptions : NSObject <NSCopying, NSMutableCopying>
 
 + optionsWithDefaultValues;
