@@ -28,7 +28,7 @@
 @synthesize options;
 @synthesize synchronizing;
 
-- initBindingKey:(NSString*) key ofObject:(id) object toKey:(NSString*) otherKey ofObject:(id) otherObject options:(ILBindingOptions *)o;
+- initWithKey:(NSString*) key ofObject:(id) object boundToKey:(NSString*) otherKey ofObject:(id) otherObject options:(ILBindingOptions *)o;
 {
     self = [super init];
     if (self) {

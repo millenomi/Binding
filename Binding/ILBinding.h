@@ -12,7 +12,7 @@
 
 @interface ILBinding : NSObject
 
-- initBindingKey:(NSString*) key ofObject:(id) object toKey:(NSString*) otherKey ofObject:(id) otherObject options:(ILBindingOptions*) options;
+- initWithKey:(NSString*) key ofObject:(id) object boundToKey:(NSString*) otherKey ofObject:(id) otherObject options:(ILBindingOptions*) options;
 - (void) unbind;
 
 @end
