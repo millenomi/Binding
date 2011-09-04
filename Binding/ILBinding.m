@@ -28,7 +28,7 @@
 @synthesize options;
 @synthesize synchronizing;
 
-- initWithKey:(NSString*) key ofObject:(id) object boundToKey:(NSString*) otherKey ofObject:(id) otherObject options:(ILBindingOptions *)o;
+- initWithKey:(NSString*) key ofSourceObject:(id) object boundToKey:(NSString*) otherKey ofTargetObject:(id) otherObject options:(ILBindingOptions *)o;
 {
     self = [super init];
     if (self) {
@@ -69,6 +69,9 @@ static NSString* const kILBindingIsDispatchingChangeOnCurrentThreadKey = @"ILBin
     }
     
     if (self.synchronizing)
+        return;
+    
+    if (object == self.secondObject && self.options.direction == kILBindingDirectionSourceToTargetOnly)
         return;
     
     self.synchronizing = YES;

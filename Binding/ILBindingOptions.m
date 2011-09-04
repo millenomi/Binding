@@ -12,6 +12,8 @@
 
 @synthesize concurrencyModel, allowedThread;
 
+@synthesize direction;
+
 + optionsWithDefaultValues;
 {
     return [[self new] autorelease];
@@ -21,32 +23,48 @@
 {
     self = [super init];
     if (self) {
-        self.concurrencyModel = kILBindingConcurrencyAllowedThread;
+        self.allowedThread = [NSThread mainThread];
     }
     return self;
 }
 
 - (void)setConcurrencyModel:(ILBindingConcurrencyModel) m;
 {
-    concurrencyModel = m;
-    
-    switch (concurrencyModel) {
-        case kILBindingConcurrencyAllowedThread:
-            
-            if (!self.allowedThread)
-                self.allowedThread = [NSThread mainThread];
-            
-            break;
+    if (concurrencyModel != m) {
+        concurrencyModel = m;
+        
+        switch (concurrencyModel) {
+            case kILBindingConcurrencyAllowedThread:
+                
+                if (!self.allowedThread)
+                    self.allowedThread = [NSThread mainThread];
+                
+                break;
+        }
+    }
+}
+
+- (void)setAllowedThread:(NSThread *) a;
+{
+    if (a != allowedThread) {
+        [allowedThread release];
+        allowedThread = [a retain];
+        
+        if (allowedThread)
+            self.concurrencyModel = kILBindingConcurrencyAllowedThread;
     }
 }
 
 - (id)copyWithZone:(NSZone *)zone;
 {
     ILBindingOptions* newOptions = [[ILBindingOptions allocWithZone:zone] init];
+    
     newOptions->concurrencyModel = concurrencyModel;
-
+        
     [newOptions->allowedThread autorelease];
     newOptions->allowedThread = [allowedThread retain];
+    
+    newOptions->direction = direction;
     
     return newOptions;
 }
