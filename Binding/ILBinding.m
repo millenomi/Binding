@@ -10,11 +10,13 @@
 
 @interface ILBinding ()
 
-@property(assign, nonatomic) id firstObject, secondObject;
-@property(copy, nonatomic) NSString* firstKey, * secondKey;
+// The roots of our binding chains.
+@property(assign, nonatomic) id sourceObject, targetObject;
+
+// The key paths.
+@property(copy, nonatomic) NSString* sourceKeyPath, * targetKeyPath;
 
 @property(copy, nonatomic) ILBindingOptions* options;
-
 @property(nonatomic, getter = isSynchronizing) BOOL synchronizing;
 
 @end
@@ -22,25 +24,25 @@
 
 @implementation ILBinding
 
-@synthesize firstObject, secondObject;
-@synthesize firstKey, secondKey;
+@synthesize sourceObject, targetObject;
+@synthesize sourceKeyPath, targetKeyPath;
 
 @synthesize options;
 @synthesize synchronizing;
 
-- initWithKey:(NSString*) key ofSourceObject:(id) object boundToKey:(NSString*) otherKey ofTargetObject:(id) otherObject options:(ILBindingOptions *)o;
+- initWithKeyPath:(NSString*) sourcePath ofSourceObject:(id) source boundToKeyPath:(NSString*) targetPath ofTargetObject:(id) target options:(ILBindingOptions *)o;
 {
     self = [super init];
-    if (self) {
-        self.firstObject = object;
-        self.firstKey = key;
-        self.secondObject = otherObject;
-        self.secondKey = otherKey;
-        
+    if (self) {        
         self.options = o;
         
-        [object addObserver:self forKeyPath:key options:NSKeyValueObservingOptionNew|NSKeyValueObservingOptionOld|NSKeyValueObservingOptionInitial context:NULL];
-        [otherObject addObserver:self forKeyPath:otherKey options:NSKeyValueObservingOptionNew|NSKeyValueObservingOptionOld context:NULL];
+        self.sourceObject = source;
+        self.sourceKeyPath = sourcePath;
+        self.targetObject = target;
+        self.targetKeyPath = targetPath;
+        
+        [self.targetObject addObserver:self forKeyPath:self.targetKeyPath options:NSKeyValueObservingOptionNew|NSKeyValueObservingOptionOld context:NULL];
+        [self.sourceObject addObserver:self forKeyPath:self.sourceKeyPath options:NSKeyValueObservingOptionNew|NSKeyValueObservingOptionOld|NSKeyValueObservingOptionInitial context:NULL];
     }
     
     return self;
@@ -54,8 +56,14 @@
 
 - (void) unbind;
 {
-    [self.firstObject removeObserver:self forKeyPath:self.firstKey];
-    [self.secondObject removeObserver:self forKeyPath:self.secondKey];
+    [self.sourceObject removeObserver:self forKeyPath:self.sourceKeyPath];
+    [self.targetObject removeObserver:self forKeyPath:self.targetKeyPath];
+    
+    self.sourceObject = nil;
+    self.targetObject = nil;
+    
+    self.sourceKeyPath = nil;
+    self.targetKeyPath = nil;
 }
 
 static NSString* const kILBindingIsDispatchingChangeOnCurrentThreadKey = @"ILBindingIsDispatchingChangeOnCurrentThread";
@@ -73,13 +81,13 @@ static NSString* const kILBindingIsDispatchingChangeOnCurrentThreadKey = @"ILBin
     if (self.synchronizing)
         return;
     
-    if (object == self.secondObject && opts.direction == kILBindingDirectionSourceToTargetOnly)
+    if (object == self.targetObject && opts.direction == kILBindingDirectionSourceToTargetOnly)
         return;
     
     self.synchronizing = YES;
     
-    id otherObject = (object == self.firstObject ? self.secondObject : self.firstObject);
-    NSString* otherKey = (object == self.firstObject ? self.secondKey : self.firstKey);
+    id otherObject = (object == self.sourceObject ? self.targetObject : self.sourceObject);
+    NSString* otherKey = (object == self.sourceObject ? self.targetKeyPath : self.sourceKeyPath);
     
     NSKeyValueChange kind = [[change objectForKey:NSKeyValueChangeKindKey] unsignedIntegerValue];
     

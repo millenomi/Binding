@@ -47,7 +47,7 @@
 {
     NSString* const kILBindingTestKey = @"someString";
     
-    ILBinding* binding = [[[ILBinding alloc] initWithKey:kILBindingTestKey ofSourceObject:self.a boundToKey:kILBindingTestKey ofTargetObject:self.b options:[ILBindingOptions optionsWithDefaultValues]] autorelease];
+    ILBinding* binding = [[[ILBinding alloc] initWithKeyPath:kILBindingTestKey ofSourceObject:self.a boundToKeyPath:kILBindingTestKey ofTargetObject:self.b options:[ILBindingOptions optionsWithDefaultValues]] autorelease];
     
     self.a.someString = @"This is a test";
     STAssertEqualObjects(self.b.someString, self.a.someString, @"The binding changed the string key on setting.");
@@ -68,7 +68,7 @@
     ILBindingOptions* options = [ILBindingOptions optionsWithDefaultValues];
     options.direction = kILBindingDirectionSourceToTargetOnly;
     
-    ILBinding* binding = [[[ILBinding alloc] initWithKey:kILBindingTestKey ofSourceObject:self.a boundToKey:kILBindingTestKey ofTargetObject:self.b options:options] autorelease];
+    ILBinding* binding = [[[ILBinding alloc] initWithKeyPath:kILBindingTestKey ofSourceObject:self.a boundToKeyPath:kILBindingTestKey ofTargetObject:self.b options:options] autorelease];
     
     self.a.someString = @"This is a test";
     STAssertEqualObjects(self.b.someString, self.a.someString, @"The binding changed the string key on setting.");
