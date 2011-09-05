@@ -15,6 +15,8 @@
 - initWithKeyPath:(NSString*) key ofSourceObject:(id) object boundToKeyPath:(NSString*) otherKey ofTargetObject:(id) otherObject options:(ILBindingOptions*) options;
 - (void) unbind;
 
++ bindingWithKeyPath:(NSString*) key ofSourceObject:(id) object boundToKeyPath:(NSString*) otherKey ofTargetObject:(id) otherObject options:(ILBindingOptions*) options;
+
 @end
 
 
@@ -25,6 +27,8 @@
 @interface ILBinding (ILUIControlBindingAdditions)
 
 - (id)initWithKeyPath:(NSString *)key ofSourceObject:(id)object boundToKeyPath:(NSString *)otherKey ofTargetUIControl:(UIControl*)otherObject options:(ILBindingOptions *)options;
+
++ (id)bindingWithKeyPath:(NSString *)key ofSourceObject:(id)object boundToKeyPath:(NSString *)otherKey ofTargetUIControl:(UIControl*)otherObject options:(ILBindingOptions *)options;
 
 @end
 

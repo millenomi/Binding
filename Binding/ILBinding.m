@@ -37,6 +37,11 @@
 
 @synthesize cleanupBlocks;
 
++ bindingWithKeyPath:(NSString*) key ofSourceObject:(id) object boundToKeyPath:(NSString*) otherKey ofTargetObject:(id) otherObject options:(ILBindingOptions*) options;
+{
+    return [[[self alloc] initWithKeyPath:key ofSourceObject:object boundToKeyPath:otherKey ofTargetObject:otherObject options:options] autorelease];
+}
+
 - initWithKeyPath:(NSString*) sourcePath ofSourceObject:(id) source boundToKeyPath:(NSString*) targetPath ofTargetObject:(id) target options:(ILBindingOptions *)o;
 {
     self = [super init];
@@ -288,6 +293,11 @@ static NSString* const kILBindingIsDispatchingChangeOnCurrentThreadKey = @"ILBin
     }
     
     return self;
+}
+
++ (id)bindingWithKeyPath:(NSString *)key ofSourceObject:(id)object boundToKeyPath:(NSString *)otherKey ofTargetUIControl:(UIControl*)otherObject options:(ILBindingOptions *)options;
+{
+    return [[[self alloc] initWithKeyPath:key ofSourceObject:object boundToKeyPath:otherKey ofTargetUIControl:otherObject options:options] autorelease];
 }
 
 @end
