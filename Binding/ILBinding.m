@@ -19,6 +19,11 @@
 @property(copy, nonatomic) ILBindingOptions* options;
 @property(nonatomic, getter = isSynchronizing) BOOL synchronizing;
 
+- (void) synchronizeFromTargetToSource;
+
+@property(retain, nonatomic) NSMutableSet* cleanupBlocks;
+- (void) addCleanupBlock:(void(^)(ILBinding* myself)) block;
+
 @end
 
 
@@ -29,6 +34,8 @@
 
 @synthesize options;
 @synthesize synchronizing;
+
+@synthesize cleanupBlocks;
 
 - initWithKeyPath:(NSString*) sourcePath ofSourceObject:(id) source boundToKeyPath:(NSString*) targetPath ofTargetObject:(id) target options:(ILBindingOptions *)o;
 {
@@ -56,6 +63,11 @@
 
 - (void) unbind;
 {
+    for (void (^block)(ILBinding*) in self.cleanupBlocks)
+        block(self);
+    
+    self.cleanupBlocks = nil;
+    
     [self.sourceObject removeObserver:self forKeyPath:self.sourceKeyPath];
     [self.targetObject removeObserver:self forKeyPath:self.targetKeyPath];
     
@@ -64,6 +76,14 @@
     
     self.sourceKeyPath = nil;
     self.targetKeyPath = nil;
+}
+
+- (void) addCleanupBlock:(void (^)(ILBinding*))block;
+{
+    if (!self.cleanupBlocks)
+        self.cleanupBlocks = [NSMutableSet set];
+    
+    [self.cleanupBlocks addObject:[[block copy] autorelease]];
 }
 
 static NSString* const kILBindingIsDispatchingChangeOnCurrentThreadKey = @"ILBindingIsDispatchingChangeOnCurrentThread";
@@ -224,4 +244,52 @@ static NSString* const kILBindingIsDispatchingChangeOnCurrentThreadKey = @"ILBin
     self.synchronizing = NO;
 }
 
+- (void) synchronizeFromTargetToSource;
+{
+    ILBindingOptions* opts = self.options;
+    
+    if (opts.concurrencyModel == kILBindingConcurrencyAllowedThread && opts.allowedThread != [NSThread currentThread]) {
+        
+        [NSException raise:@"ILBindingDisallowedThreadException" format:@"This thread (%@) is not the allowed thread for this binding (%@). (This binding was set up with the allowed thread concurrency model.)", [NSThread currentThread], opts.allowedThread];
+        
+    }    
+    
+    self.synchronizing = YES;
+    
+    [self.sourceObject setValue:[self.targetObject valueForKeyPath:self.targetKeyPath] forKeyPath:self.sourceKeyPath];
+    
+    self.synchronizing = NO;
+}
+
 @end
+
+
+#if TARGET_OS_IPHONE
+
+@implementation ILBinding (ILUIControlBindingAdditions)
+
+- (id)initWithKeyPath:(NSString *)key ofSourceObject:(id)object boundToKeyPath:(NSString *)otherKey ofTargetUIControl:(UIControl*)otherObject options:(ILBindingOptions *)opts;
+{
+    if (opts.direction == kILBindingDirectionSourceToTargetOnly) {
+        return [self initWithKeyPath:key ofSourceObject:object boundToKeyPath:otherKey ofTargetObject:otherObject options:opts];
+    }
+    
+    ILBindingOptions* actualOptions = [[opts copy] autorelease];
+    actualOptions.direction = kILBindingDirectionSourceToTargetOnly;
+    
+    self = [self initWithKeyPath:key ofSourceObject:object boundToKeyPath:otherKey ofTargetObject:otherObject options:actualOptions];
+
+    if (self) {
+        [otherObject addTarget:self action:@selector(synchronizeFromTargetToSource) forControlEvents:UIControlEventValueChanged];
+        
+        [self addCleanupBlock:^(ILBinding* me) {
+            [(UIControl*)me.targetObject removeTarget:self action:@selector(synchronizeFromTargetToSource) forControlEvents:UIControlEventValueChanged];
+        }];
+    }
+    
+    return self;
+}
+
+@end
+
+#endif

@@ -16,3 +16,16 @@
 - (void) unbind;
 
 @end
+
+
+#if TARGET_OS_IPHONE
+
+#import <UIKit/UIKit.h>
+
+@interface ILBinding (ILUIControlBindingAdditions)
+
+- (id)initWithKeyPath:(NSString *)key ofSourceObject:(id)object boundToKeyPath:(NSString *)otherKey ofTargetUIControl:(UIControl*)otherObject options:(ILBindingOptions *)options;
+
+@end
+
+#endif
