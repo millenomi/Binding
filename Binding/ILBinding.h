@@ -17,6 +17,9 @@
 
 + bindingWithKeyPath:(NSString*) key ofSourceObject:(id) object boundToKeyPath:(NSString*) otherKey ofTargetObject:(id) otherObject options:(ILBindingOptions*) options;
 
+@property(nonatomic, getter = isLogging) BOOL logging;
+- (ILBinding*) setLogging;
+
 @end
 
 

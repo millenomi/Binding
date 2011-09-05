@@ -36,11 +36,11 @@
         return @"Unknown";
     
     CGFloat average = (red + green + blue) / 3.0;
-    if (average < 30)
+    if (average < 0.1)
         return @"Black";
-    else if (average >= 30 && average < 100)
+    else if (average >= 0.1 && average < 0.5)
         return @"Dark";
-    else if (average >= 100 && average < 200)
+    else if (average >= 0.5 && average < 0.9)
         return @"Bright";
     else
         return @"White";
@@ -108,11 +108,11 @@
     
     [bindings addObject:
      
-     [ILBinding bindingWithKeyPath:@"selectedColor"
+     [[ILBinding bindingWithKeyPath:@"selectedColor"
                     ofSourceObject:self
                     boundToKeyPath:@"title"
                     ofTargetObject:self
-                           options:opts]
+                           options:opts] setLogging]
      ];
     
 }
