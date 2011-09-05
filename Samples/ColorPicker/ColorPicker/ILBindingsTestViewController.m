@@ -115,6 +115,7 @@
                            options:opts] setLogging]
      ];
     
+    self.navigationItem.rightBarButtonItem = [[[UIBarButtonItem alloc] initWithTitle:@"Unbind" style:UIBarButtonItemStyleBordered target:self action:@selector(testByUnbinding)] autorelease];
 }
 
 - (void)viewDidUnload {
@@ -126,6 +127,12 @@
     [self setBlueSlider:nil];
     [self setColorDisplayView:nil];
     [super viewDidUnload];
+}
+
+- (void) testByUnbinding;
+{
+    [bindings makeObjectsPerformSelector:@selector(unbind)];
+    [bindings removeAllObjects];
 }
 
 // --------------------
