@@ -25,7 +25,15 @@ typedef enum {
     kILBindingDirectionSourceToTargetOnly,
 } ILBindingDirection;
 
-
+/*
+ 
+ Instances of this class set up the options for a binding (an ILBinding instance). You create one with -init (or the +optionsWithDefaultValues convenience method), then proceed to customize it.
+ 
+ Note that this class has the property that, no matter what you set, it will try to keep its members consistent. For instance, setting an allowed thread automatically sets the concurrency model to kILBindingConcurrencyAllowedThread, and vice versa setting a different concurrency model means the allowedThread property is set to nil.
+ 
+ Instances are copiable. All copies, whether made with -copy or -mutableCopy, are mutable.
+ 
+ */
 @interface ILBindingOptions : NSObject <NSCopying, NSMutableCopying>
 
 + optionsWithDefaultValues;
@@ -35,5 +43,8 @@ typedef enum {
 @property(nonatomic, retain) NSThread* allowedThread;
 
 @property(nonatomic) ILBindingDirection direction;
+
+// The value transformer for the binding. Note that setting a one-way transformer sets the .direction to kILBindingDirectionSourceToTargetOnly.
+@property(nonatomic, retain) NSValueTransformer* valueTransformer;
 
 @end

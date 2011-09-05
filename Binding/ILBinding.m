@@ -68,6 +68,34 @@
 
 static NSString* const kILBindingIsDispatchingChangeOnCurrentThreadKey = @"ILBindingIsDispatchingChangeOnCurrentThread";
 
+- (NSArray*) arrayByTransformingArray:(NSArray*) objects usingValueTransformerSelector:(SEL) sel;
+{
+    ILBindingOptions* opts = self.options;
+    if (!opts.valueTransformer)
+        return objects;
+    
+    NSMutableArray* transformedObjects = [NSMutableArray arrayWithCapacity:objects.count];
+    for (id object in objects) {
+        [transformedObjects addObject:[opts.valueTransformer performSelector:sel withObject:object]];
+    }
+    
+    return transformedObjects;
+}
+
+- (NSSet*) setByTransformingSet:(NSSet*) objects usingValueTransformerSelector:(SEL) sel;
+{
+    ILBindingOptions* opts = self.options;
+    if (!opts.valueTransformer)
+        return objects;
+    
+    NSMutableSet* transformedObjects = [NSMutableSet setWithCapacity:objects.count];
+    for (id object in objects) {
+        [transformedObjects addObject:[opts.valueTransformer performSelector:sel withObject:object]];
+    }
+    
+    return transformedObjects;
+}
+
 - (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context;
 {
     ILBindingOptions* opts = self.options;
@@ -89,11 +117,17 @@ static NSString* const kILBindingIsDispatchingChangeOnCurrentThreadKey = @"ILBin
     id otherObject = (object == self.sourceObject ? self.targetObject : self.sourceObject);
     NSString* otherKey = (object == self.sourceObject ? self.targetKeyPath : self.sourceKeyPath);
     
+    SEL valueTransformerSelector = (object == self.sourceObject? @selector(transformedValue:) : @selector(reverseTransformedValue:));
+    
     NSKeyValueChange kind = [[change objectForKey:NSKeyValueChangeKindKey] unsignedIntegerValue];
     
     if (kind == NSKeyValueChangeSetting) {
         
-        [otherObject setValue:[object valueForKeyPath:keyPath] forKeyPath:otherKey];
+        id value = [object valueForKeyPath:keyPath];
+        if (opts.valueTransformer)
+            value = [opts.valueTransformer performSelector:valueTransformerSelector withObject:value];
+        
+        [otherObject setValue:value forKeyPath:otherKey];
         
     } else {
         
@@ -106,6 +140,8 @@ static NSString* const kILBindingIsDispatchingChangeOnCurrentThreadKey = @"ILBin
                     
                     NSIndexSet* indexes = [change objectForKey:NSKeyValueChangeIndexesKey];
                     NSArray* objects = [change objectForKey:NSKeyValueChangeNewKey];
+                    
+                    objects = [self arrayByTransformingArray:objects usingValueTransformerSelector:valueTransformerSelector];
                     
                     [[otherObject mutableArrayValueForKey:otherKey] insertObjects:objects atIndexes:indexes];
                     
@@ -126,6 +162,8 @@ static NSString* const kILBindingIsDispatchingChangeOnCurrentThreadKey = @"ILBin
                     NSIndexSet* indexes = [change objectForKey:NSKeyValueChangeIndexesKey];
                     NSArray* objects = [change objectForKey:NSKeyValueChangeNewKey];
                     
+                    objects = [self arrayByTransformingArray:objects usingValueTransformerSelector:valueTransformerSelector];
+                    
                     [[otherObject mutableArrayValueForKey:otherKey] replaceObjectsAtIndexes:indexes withObjects:objects];
                     
                     break;
@@ -142,6 +180,8 @@ static NSString* const kILBindingIsDispatchingChangeOnCurrentThreadKey = @"ILBin
                     
                     NSSet* objects = [change objectForKey:NSKeyValueChangeNewKey];
                     
+                    objects = [self setByTransformingSet:objects usingValueTransformerSelector:valueTransformerSelector];
+                    
                     [[otherObject mutableSetValueForKey:otherKey] unionSet:objects];
                     
                     break;
@@ -151,6 +191,8 @@ static NSString* const kILBindingIsDispatchingChangeOnCurrentThreadKey = @"ILBin
                     
                     NSSet* objects = [change objectForKey:NSKeyValueChangeOldKey];
                     
+                    objects = [self setByTransformingSet:objects usingValueTransformerSelector:valueTransformerSelector];
+
                     [[otherObject mutableSetValueForKey:otherKey] minusSet:objects];
                     
                     break;
@@ -160,6 +202,9 @@ static NSString* const kILBindingIsDispatchingChangeOnCurrentThreadKey = @"ILBin
                     
                     NSSet* addedObjects = [change objectForKey:NSKeyValueChangeNewKey];
                     NSSet* removedObjects = [change objectForKey:NSKeyValueChangeOldKey];
+                    
+                    addedObjects = [self setByTransformingSet:addedObjects usingValueTransformerSelector:valueTransformerSelector];
+                    removedObjects = [self setByTransformingSet:removedObjects usingValueTransformerSelector:valueTransformerSelector];
                     
                     NSMutableSet* mutableSet = [otherObject mutableSetValueForKey:otherKey];
                     [mutableSet minusSet:removedObjects];

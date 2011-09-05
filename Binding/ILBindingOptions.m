@@ -14,6 +14,7 @@
 
 @synthesize direction;
 
+@synthesize valueTransformer;
 
 + optionsWithDefaultValues;
 {
@@ -27,6 +28,13 @@
         self.allowedThread = [NSThread mainThread];
     }
     return self;
+}
+
+- (void)dealloc;
+{
+    [allowedThread release];
+    [valueTransformer release];
+    [super dealloc];
 }
 
 - (void)setConcurrencyModel:(ILBindingConcurrencyModel) m;
@@ -56,6 +64,27 @@
     }
 }
 
+- (void)setDirection:(ILBindingDirection) d;
+{
+    if (direction != d) {
+        direction = d;
+        
+        if (direction != kILBindingDirectionSourceToTargetOnly && self.valueTransformer && ![[self.valueTransformer class] allowsReverseTransformation])
+            self.valueTransformer = nil;
+    }
+}
+
+- (void)setValueTransformer:(NSValueTransformer *) v;
+{
+    if (v != valueTransformer) {
+        [valueTransformer release];
+        valueTransformer = [v retain];
+        
+        if (valueTransformer && ![[valueTransformer class] allowsReverseTransformation])
+            self.direction = kILBindingDirectionSourceToTargetOnly;
+    }
+}
+
 - (id)copyWithZone:(NSZone *)zone;
 {
     ILBindingOptions* newOptions = [[ILBindingOptions allocWithZone:zone] init];
@@ -66,6 +95,9 @@
     newOptions->allowedThread = [allowedThread retain];
     
     newOptions->direction = direction;
+    
+    [newOptions->valueTransformer autorelease];
+    newOptions->valueTransformer = [valueTransformer retain];
         
     return newOptions;
 }
