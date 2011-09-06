@@ -15,6 +15,12 @@
 		151265C31413918A00396CFB /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 151265C11413918A00396CFB /* InfoPlist.strings */; };
 		151265C61413918A00396CFB /* BindingTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 151265C51413918A00396CFB /* BindingTests.m */; };
 		151265CC1413920000396CFB /* libBinding.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 157B5FE91412B2E500756425 /* libBinding.a */; };
+		1551416714160238007CA046 /* ILBindingDefinition.h in Headers */ = {isa = PBXBuildFile; fileRef = 1551416514160238007CA046 /* ILBindingDefinition.h */; };
+		1551416814160238007CA046 /* ILBindingDefinition.m in Sources */ = {isa = PBXBuildFile; fileRef = 1551416614160238007CA046 /* ILBindingDefinition.m */; };
+		1551416C141619D5007CA046 /* ILBindingDefinition+ILBindingsLoadingMany.h in Headers */ = {isa = PBXBuildFile; fileRef = 1551416A141619D5007CA046 /* ILBindingDefinition+ILBindingsLoadingMany.h */; };
+		1551416D141619D5007CA046 /* ILBindingDefinition+ILBindingsLoadingMany.m in Sources */ = {isa = PBXBuildFile; fileRef = 1551416B141619D5007CA046 /* ILBindingDefinition+ILBindingsLoadingMany.m */; };
+		1551417014161C68007CA046 /* ILBindingsSet.h in Headers */ = {isa = PBXBuildFile; fileRef = 1551416E14161C68007CA046 /* ILBindingsSet.h */; };
+		1551417114161C68007CA046 /* ILBindingsSet.m in Sources */ = {isa = PBXBuildFile; fileRef = 1551416F14161C68007CA046 /* ILBindingsSet.m */; };
 		155E879214141B4C003E951B /* ILBindingOptions.h in Headers */ = {isa = PBXBuildFile; fileRef = 155E879014141B4C003E951B /* ILBindingOptions.h */; };
 		155E879314141B4C003E951B /* ILBindingOptions.m in Sources */ = {isa = PBXBuildFile; fileRef = 155E879114141B4C003E951B /* ILBindingOptions.m */; };
 		157B5FED1412B2E500756425 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 157B5FEC1412B2E500756425 /* Foundation.framework */; };
@@ -31,6 +37,12 @@
 		151265C41413918A00396CFB /* BindingTests.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BindingTests.h; sourceTree = "<group>"; };
 		151265C51413918A00396CFB /* BindingTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = BindingTests.m; sourceTree = "<group>"; };
 		151265C71413918A00396CFB /* BindingTests-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "BindingTests-Prefix.pch"; sourceTree = "<group>"; };
+		1551416514160238007CA046 /* ILBindingDefinition.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ILBindingDefinition.h; sourceTree = "<group>"; };
+		1551416614160238007CA046 /* ILBindingDefinition.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ILBindingDefinition.m; sourceTree = "<group>"; };
+		1551416A141619D5007CA046 /* ILBindingDefinition+ILBindingsLoadingMany.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "ILBindingDefinition+ILBindingsLoadingMany.h"; sourceTree = "<group>"; };
+		1551416B141619D5007CA046 /* ILBindingDefinition+ILBindingsLoadingMany.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "ILBindingDefinition+ILBindingsLoadingMany.m"; sourceTree = "<group>"; };
+		1551416E14161C68007CA046 /* ILBindingsSet.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ILBindingsSet.h; sourceTree = "<group>"; };
+		1551416F14161C68007CA046 /* ILBindingsSet.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ILBindingsSet.m; sourceTree = "<group>"; };
 		155E879014141B4C003E951B /* ILBindingOptions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ILBindingOptions.h; sourceTree = "<group>"; };
 		155E879114141B4C003E951B /* ILBindingOptions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ILBindingOptions.m; sourceTree = "<group>"; };
 		157B5FE91412B2E500756425 /* libBinding.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libBinding.a; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -118,6 +130,12 @@
 				1504582F1412B362007DC112 /* ILBinding.m */,
 				155E879014141B4C003E951B /* ILBindingOptions.h */,
 				155E879114141B4C003E951B /* ILBindingOptions.m */,
+				1551416514160238007CA046 /* ILBindingDefinition.h */,
+				1551416614160238007CA046 /* ILBindingDefinition.m */,
+				1551416A141619D5007CA046 /* ILBindingDefinition+ILBindingsLoadingMany.h */,
+				1551416B141619D5007CA046 /* ILBindingDefinition+ILBindingsLoadingMany.m */,
+				1551416E14161C68007CA046 /* ILBindingsSet.h */,
+				1551416F14161C68007CA046 /* ILBindingsSet.m */,
 			);
 			path = Binding;
 			sourceTree = "<group>";
@@ -139,6 +157,9 @@
 			files = (
 				150458301412B362007DC112 /* ILBinding.h in Headers */,
 				155E879214141B4C003E951B /* ILBindingOptions.h in Headers */,
+				1551416714160238007CA046 /* ILBindingDefinition.h in Headers */,
+				1551416C141619D5007CA046 /* ILBindingDefinition+ILBindingsLoadingMany.h in Headers */,
+				1551417014161C68007CA046 /* ILBindingsSet.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -248,6 +269,9 @@
 			files = (
 				150458311412B362007DC112 /* ILBinding.m in Sources */,
 				155E879314141B4C003E951B /* ILBindingOptions.m in Sources */,
+				1551416814160238007CA046 /* ILBindingDefinition.m in Sources */,
+				1551416D141619D5007CA046 /* ILBindingDefinition+ILBindingsLoadingMany.m in Sources */,
+				1551417114161C68007CA046 /* ILBindingsSet.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
