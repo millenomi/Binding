@@ -11,7 +11,7 @@
 #import "ILBinding.h"
 #import "ILBindingOptions.h"
 
-@interface ILBindingDefinition : NSObject
+@interface ILBindingDefinition : NSObject <NSCopying, NSMutableCopying>
 
 // Loading a definition from a plist
 - (id) initWithPropertyListRepresentation:(id) plist error:(NSError**) error;
@@ -39,3 +39,15 @@ enum {
 
 #define kILBindingDefinitionErrorSourceKey @"ILBindingDefinitionErrorSourceKey"
 #define kILBindingDefinitionErrorSourceValue @"ILBindingDefinitionErrorSourceValue"
+
+
+@interface ILMutableBindingDefinition : ILBindingDefinition
+
+@property(copy, nonatomic) NSString* key;
+
+@property(copy, nonatomic) NSString* pathToSource, * pathToTarget;
+@property(copy, nonatomic) NSString* sourceKeyPath, * targetKeyPath;
+@property(nonatomic) ILBindingDirection direction;
+@property(copy, nonatomic) NSString* valueTransformerName;
+
+@end

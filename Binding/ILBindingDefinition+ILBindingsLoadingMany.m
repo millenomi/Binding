@@ -22,14 +22,49 @@
         if (error) *error = [NSError errorWithDomain:kILBindingDefinitionErrorDomain code:kILBindingDefinitionErrorInvalidPropertyList userInfo:nil];
         return nil;
     }
+
+    return [self definitionsWithContentsOfURL:url definitionsByKey:byKey error:error];
+}
+
++ (NSData*) propertyListDataWithDefinitions:(NSSet*) definitions error:(NSError**) error;
+{
+    NSMutableDictionary* dictionary = [NSMutableDictionary dictionary];
+    NSMutableArray* definitionPlists = [NSMutableArray arrayWithCapacity:definitions.count];
     
-    NSDictionary* dictionary = [NSDictionary dictionaryWithContentsOfURL:url];
-    if (!dictionary){
+    for (ILBindingDefinition* definition in definitionPlists)
+        [definitionPlists addObject:definition.propertyListRepresentation];
+    
+    [dictionary setObject:definitionPlists forKey:kILBindingDefinitionContainerKey];
+    
+    return [NSPropertyListSerialization dataWithPropertyList:dictionary format:NSPropertyListBinaryFormat_v1_0 options:0 error:error];
+}
+
++ (BOOL) writeDefinitions:(NSSet*) definitions toFileAtURL:(NSURL*) url error:(NSError**) error;
+{
+    NSData* data = [self propertyListDataWithDefinitions:definitions error:error];
+    if (!data)
+        return NO;
+        
+    return [data writeToURL:url options:NSDataWritingAtomic error:error];
+}
+
++ (NSSet*) definitionsWithContentsOfURL:(NSURL*) url definitionsByKey:(NSDictionary**) byKey error:(NSError**) error;
+{
+    return [self definitionsWithPropertyListData:[NSData dataWithContentsOfURL:url] definitionsByKey:byKey error:error];
+}
+
++ (NSSet*) definitionsWithPropertyListData:(NSData*) data definitionsByKey:(NSDictionary**) byKey error:(NSError**) error;
+{
+    id plist = [NSPropertyListSerialization propertyListWithData:data options:0 format:NULL error:error];
+    if (!plist)
+        return nil;
+    
+    if (![plist isKindOfClass:[NSDictionary class]]) {
         if (error) *error = [NSError errorWithDomain:kILBindingDefinitionErrorDomain code:kILBindingDefinitionErrorInvalidPropertyList userInfo:nil];
         return nil;
     }
     
-    id allDefinitionPlists = [dictionary objectForKey:kILBindingDefinitionContainerKey];
+    id allDefinitionPlists = [plist objectForKey:kILBindingDefinitionContainerKey];
     if (!allDefinitionPlists || ![allDefinitionPlists isKindOfClass:[NSArray class]]){
         if (error) *error = [NSError errorWithDomain:kILBindingDefinitionErrorDomain code:kILBindingDefinitionErrorInvalidPropertyList userInfo:nil];
         return nil;

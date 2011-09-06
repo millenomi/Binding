@@ -40,6 +40,9 @@
 @property(copy, nonatomic) NSString* valueTransformerName;
 
 - (id) objectForKey:(NSString*) key inDictionary:(NSDictionary*) dict assumingOfClass:(Class) cls allowableValues:(NSSet*) allowable error:(NSError**) error;
+
+- (id) copyWithClass:(Class) cls;
+
 @end
 
 
@@ -237,5 +240,42 @@
     return [ILBinding bindingWithKeyPath:self.sourceKeyPath ofSourceObject:source boundToKeyPath:self.targetKeyPath ofTargetObject:target options:opts];
 }
 
+- (id) copyWithClass:(Class) cls;
+{
+    ILBindingOptions* opts = [ILBindingOptions optionsWithDefaultValues];
+    opts.direction = self.direction;
+    
+    if (self.valueTransformerName)
+        opts.valueTransformer = [NSValueTransformer valueTransformerForName:self.valueTransformerName];
+    
+    return [[cls alloc] initWithPathToSource:self.pathToSource boundSourceKeyPath:self.sourceKeyPath pathToTarget:self.pathToTarget boundTargetKeyPath:self.targetKeyPath options:opts key:self.key];
+}
+
+- (id)copyWithZone:(NSZone *)zone;
+{
+    return [self copyWithClass:[ILBindingDefinition class]];
+}
+
+- (id)mutableCopyWithZone:(NSZone *)zone;
+{
+    return [self copyWithClass:[ILMutableBindingDefinition class]];    
+}
+
 @end
 
+
+@implementation ILMutableBindingDefinition
+
+#define ILBindingDefinitionCallSuperForProperty(getter, setter, type) \
+    - (type) getter { return [super getter]; } \
+    - (void) setter (type) newValue { [super setter newValue]; }
+
+ILBindingDefinitionCallSuperForProperty(key, setKey:, NSString*)
+ILBindingDefinitionCallSuperForProperty(pathToSource, setPathToSource:, NSString*)
+ILBindingDefinitionCallSuperForProperty(pathToTarget, setPathToTarget:, NSString*)
+ILBindingDefinitionCallSuperForProperty(sourceKeyPath, setSourceKeyPath:, NSString*)
+ILBindingDefinitionCallSuperForProperty(targetKeyPath, setTargetKeyPath:, NSString*)
+ILBindingDefinitionCallSuperForProperty(direction, setDirection:, ILBindingDirection)
+ILBindingDefinitionCallSuperForProperty(valueTransformerName, setValueTransformerName:, NSString*)
+
+@end

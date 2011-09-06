@@ -21,6 +21,17 @@
 		1551416D141619D5007CA046 /* ILBindingDefinition+ILBindingsLoadingMany.m in Sources */ = {isa = PBXBuildFile; fileRef = 1551416B141619D5007CA046 /* ILBindingDefinition+ILBindingsLoadingMany.m */; };
 		1551417014161C68007CA046 /* ILBindingsSet.h in Headers */ = {isa = PBXBuildFile; fileRef = 1551416E14161C68007CA046 /* ILBindingsSet.h */; };
 		1551417114161C68007CA046 /* ILBindingsSet.m in Sources */ = {isa = PBXBuildFile; fileRef = 1551416F14161C68007CA046 /* ILBindingsSet.m */; };
+		155141AF14164EF3007CA046 /* ILBinding.m in Sources */ = {isa = PBXBuildFile; fileRef = 1504582F1412B362007DC112 /* ILBinding.m */; };
+		155141B014164EF3007CA046 /* ILBindingOptions.m in Sources */ = {isa = PBXBuildFile; fileRef = 155E879114141B4C003E951B /* ILBindingOptions.m */; };
+		155141B114164EF3007CA046 /* ILBindingDefinition.m in Sources */ = {isa = PBXBuildFile; fileRef = 1551416614160238007CA046 /* ILBindingDefinition.m */; };
+		155141B214164EF3007CA046 /* ILBindingDefinition+ILBindingsLoadingMany.m in Sources */ = {isa = PBXBuildFile; fileRef = 1551416B141619D5007CA046 /* ILBindingDefinition+ILBindingsLoadingMany.m */; };
+		155141B314164EF3007CA046 /* ILBindingsSet.m in Sources */ = {isa = PBXBuildFile; fileRef = 1551416F14161C68007CA046 /* ILBindingsSet.m */; };
+		155141B514164EF3007CA046 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 157B5FEC1412B2E500756425 /* Foundation.framework */; };
+		155141B714164EF3007CA046 /* ILBinding.h in Headers */ = {isa = PBXBuildFile; fileRef = 1504582E1412B362007DC112 /* ILBinding.h */; };
+		155141B814164EF3007CA046 /* ILBindingOptions.h in Headers */ = {isa = PBXBuildFile; fileRef = 155E879014141B4C003E951B /* ILBindingOptions.h */; };
+		155141B914164EF3007CA046 /* ILBindingDefinition.h in Headers */ = {isa = PBXBuildFile; fileRef = 1551416514160238007CA046 /* ILBindingDefinition.h */; };
+		155141BA14164EF3007CA046 /* ILBindingDefinition+ILBindingsLoadingMany.h in Headers */ = {isa = PBXBuildFile; fileRef = 1551416A141619D5007CA046 /* ILBindingDefinition+ILBindingsLoadingMany.h */; };
+		155141BB14164EF3007CA046 /* ILBindingsSet.h in Headers */ = {isa = PBXBuildFile; fileRef = 1551416E14161C68007CA046 /* ILBindingsSet.h */; };
 		155E879214141B4C003E951B /* ILBindingOptions.h in Headers */ = {isa = PBXBuildFile; fileRef = 155E879014141B4C003E951B /* ILBindingOptions.h */; };
 		155E879314141B4C003E951B /* ILBindingOptions.m in Sources */ = {isa = PBXBuildFile; fileRef = 155E879114141B4C003E951B /* ILBindingOptions.m */; };
 		157B5FED1412B2E500756425 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 157B5FEC1412B2E500756425 /* Foundation.framework */; };
@@ -43,6 +54,7 @@
 		1551416B141619D5007CA046 /* ILBindingDefinition+ILBindingsLoadingMany.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "ILBindingDefinition+ILBindingsLoadingMany.m"; sourceTree = "<group>"; };
 		1551416E14161C68007CA046 /* ILBindingsSet.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ILBindingsSet.h; sourceTree = "<group>"; };
 		1551416F14161C68007CA046 /* ILBindingsSet.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ILBindingsSet.m; sourceTree = "<group>"; };
+		155141BF14164EF3007CA046 /* libBinding-Mac.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libBinding-Mac.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		155E879014141B4C003E951B /* ILBindingOptions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ILBindingOptions.h; sourceTree = "<group>"; };
 		155E879114141B4C003E951B /* ILBindingOptions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ILBindingOptions.m; sourceTree = "<group>"; };
 		157B5FE91412B2E500756425 /* libBinding.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libBinding.a; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -59,6 +71,14 @@
 				151265BA1413918A00396CFB /* SenTestingKit.framework in Frameworks */,
 				151265BC1413918A00396CFB /* UIKit.framework in Frameworks */,
 				151265BD1413918A00396CFB /* Foundation.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		155141B414164EF3007CA046 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				155141B514164EF3007CA046 /* Foundation.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -108,6 +128,7 @@
 			children = (
 				157B5FE91412B2E500756425 /* libBinding.a */,
 				151265B81413918A00396CFB /* BindingTests.octest */,
+				155141BF14164EF3007CA046 /* libBinding-Mac.a */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -151,6 +172,18 @@
 /* End PBXGroup section */
 
 /* Begin PBXHeadersBuildPhase section */
+		155141B614164EF3007CA046 /* Headers */ = {
+			isa = PBXHeadersBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				155141B714164EF3007CA046 /* ILBinding.h in Headers */,
+				155141B814164EF3007CA046 /* ILBindingOptions.h in Headers */,
+				155141B914164EF3007CA046 /* ILBindingDefinition.h in Headers */,
+				155141BA14164EF3007CA046 /* ILBindingDefinition+ILBindingsLoadingMany.h in Headers */,
+				155141BB14164EF3007CA046 /* ILBindingsSet.h in Headers */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		157B5FE71412B2E500756425 /* Headers */ = {
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
@@ -183,6 +216,23 @@
 			productName = BindingTests;
 			productReference = 151265B81413918A00396CFB /* BindingTests.octest */;
 			productType = "com.apple.product-type.bundle";
+		};
+		155141AD14164EF3007CA046 /* Binding-Mac */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 155141BC14164EF3007CA046 /* Build configuration list for PBXNativeTarget "Binding-Mac" */;
+			buildPhases = (
+				155141AE14164EF3007CA046 /* Sources */,
+				155141B414164EF3007CA046 /* Frameworks */,
+				155141B614164EF3007CA046 /* Headers */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = "Binding-Mac";
+			productName = Binding;
+			productReference = 155141BF14164EF3007CA046 /* libBinding-Mac.a */;
+			productType = "com.apple.product-type.library.static";
 		};
 		157B5FE81412B2E500756425 /* Binding */ = {
 			isa = PBXNativeTarget;
@@ -223,6 +273,7 @@
 			targets = (
 				157B5FE81412B2E500756425 /* Binding */,
 				151265B71413918A00396CFB /* BindingTests */,
+				155141AD14164EF3007CA046 /* Binding-Mac */,
 			);
 		};
 /* End PBXProject section */
@@ -260,6 +311,18 @@
 			buildActionMask = 2147483647;
 			files = (
 				151265C61413918A00396CFB /* BindingTests.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		155141AE14164EF3007CA046 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				155141AF14164EF3007CA046 /* ILBinding.m in Sources */,
+				155141B014164EF3007CA046 /* ILBindingOptions.m in Sources */,
+				155141B114164EF3007CA046 /* ILBindingDefinition.m in Sources */,
+				155141B214164EF3007CA046 /* ILBindingDefinition+ILBindingsLoadingMany.m in Sources */,
+				155141B314164EF3007CA046 /* ILBindingsSet.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -321,11 +384,40 @@
 			};
 			name = Release;
 		};
+		155141BD14164EF3007CA046 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ARCHS = "$(ARCHS_STANDARD_64_BIT)";
+				DSTROOT = /tmp/Binding.dst;
+				GCC_ENABLE_OBJC_GC = supported;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "Binding/Binding-Prefix.pch";
+				OTHER_LDFLAGS = "-ObjC";
+				PRODUCT_NAME = "Binding-Mac";
+				SDKROOT = macosx;
+				SKIP_INSTALL = YES;
+			};
+			name = Debug;
+		};
+		155141BE14164EF3007CA046 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ARCHS = "$(ARCHS_STANDARD_64_BIT)";
+				DSTROOT = /tmp/Binding.dst;
+				GCC_ENABLE_OBJC_GC = supported;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "Binding/Binding-Prefix.pch";
+				OTHER_LDFLAGS = "-ObjC";
+				PRODUCT_NAME = "Binding-Mac";
+				SDKROOT = macosx;
+				SKIP_INSTALL = YES;
+			};
+			name = Release;
+		};
 		157B5FF41412B2E500756425 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
-				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
 				CLANG_ENABLE_OBJC_ARC = NO;
 				COPY_PHASE_STRIP = NO;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
@@ -340,8 +432,6 @@
 				GCC_WARN_ABOUT_MISSING_PROTOTYPES = YES;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 4.2;
-				SDKROOT = iphoneos;
 			};
 			name = Debug;
 		};
@@ -349,7 +439,6 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
-				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
 				CLANG_ENABLE_OBJC_ARC = NO;
 				COPY_PHASE_STRIP = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
@@ -357,8 +446,6 @@
 				GCC_WARN_ABOUT_MISSING_PROTOTYPES = YES;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 4.2;
-				SDKROOT = iphoneos;
 				VALIDATE_PRODUCT = YES;
 			};
 			name = Release;
@@ -366,11 +453,17 @@
 		157B5FF71412B2E500756425 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ARCHS = (
+					armv7,
+					armv6,
+				);
 				DSTROOT = /tmp/Binding.dst;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "Binding/Binding-Prefix.pch";
+				IPHONEOS_DEPLOYMENT_TARGET = 4.2;
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = iphoneos;
 				SKIP_INSTALL = YES;
 			};
 			name = Debug;
@@ -378,11 +471,17 @@
 		157B5FF81412B2E500756425 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ARCHS = (
+					armv7,
+					armv6,
+				);
 				DSTROOT = /tmp/Binding.dst;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "Binding/Binding-Prefix.pch";
+				IPHONEOS_DEPLOYMENT_TARGET = 4.2;
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = iphoneos;
 				SKIP_INSTALL = YES;
 			};
 			name = Release;
@@ -395,6 +494,15 @@
 			buildConfigurations = (
 				151265C81413918A00396CFB /* Debug */,
 				151265C91413918A00396CFB /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		155141BC14164EF3007CA046 /* Build configuration list for PBXNativeTarget "Binding-Mac" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				155141BD14164EF3007CA046 /* Debug */,
+				155141BE14164EF3007CA046 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
