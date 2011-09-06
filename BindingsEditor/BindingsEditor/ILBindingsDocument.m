@@ -13,19 +13,28 @@
 
 @interface ILBindingsDocument ()
 @property(retain, nonatomic) NSMutableArray* definitions;
+@property(copy, nonatomic) NSIndexSet* selectedIndexes;
 @end
 
 @implementation ILBindingsDocument
 
-@synthesize definitions;
+@synthesize definitions, selectedIndexes;
 
 - (id)init
 {
     self = [super init];
     if (self) {
         self.definitions = [NSMutableArray array];
+        
+        [self addBinding:self];
     }
     return self;
+}
+
+- (void)dealloc {
+    [definitions release];
+    [selectedIndexes release];
+    [super dealloc];
 }
 
 - (NSString *)windowNibName
@@ -36,7 +45,7 @@
 - (void)windowControllerDidLoadNib:(NSWindowController *)aController
 {
     [super windowControllerDidLoadNib:aController];
-
+    
 }
 
 - (NSData *)dataOfType:(NSString *)typeName error:(NSError **)outError
@@ -59,6 +68,12 @@
     return YES;
 }
 
-- (IBAction)addBinding:(id)sender {
+- (IBAction)addBinding:(id)sender;
+{
+    ILMutableBindingDefinition* definition = [[ILMutableBindingDefinition new] autorelease];
+    
+    [[self mutableArrayValueForKey:@"definitions"] addObject:definition];
+    self.selectedIndexes = [NSIndexSet indexSetWithIndex:self.definitions.count - 1];
 }
+
 @end
