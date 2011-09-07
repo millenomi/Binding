@@ -14,13 +14,17 @@
 			<key>CFBundleTypeIconFile</key>
 			<string></string>
 			<key>CFBundleTypeName</key>
-			<string>DocumentType</string>
+			<string>ILBindings Definition</string>
 			<key>CFBundleTypeOSTypes</key>
 			<array>
 				<string>????</string>
 			</array>
 			<key>CFBundleTypeRole</key>
 			<string>Editor</string>
+			<key>LSItemContentTypes</key>
+			<array>
+				<string>net.infinite-labs.ILBindings.Definition</string>
+			</array>
 			<key>NSDocumentClass</key>
 			<string>ILBindingsDocument</string>
 		</dict>
@@ -53,5 +57,25 @@
 	<string>MainMenu</string>
 	<key>NSPrincipalClass</key>
 	<string>NSApplication</string>
+	<key>UTExportedTypeDeclarations</key>
+	<array>
+		<dict>
+			<key>UTTypeConformsTo</key>
+			<array>
+				<string>com.apple.property-list</string>
+			</array>
+			<key>UTTypeDescription</key>
+			<string>ILBindings Definition</string>
+			<key>UTTypeIdentifier</key>
+			<string>net.infinite-labs.ILBindings.Definition</string>
+			<key>UTTypeTagSpecification</key>
+			<dict>
+				<key>public.filename-extension</key>
+				<array>
+					<string>ilabs-bindings</string>
+				</array>
+			</dict>
+		</dict>
+	</array>
 </dict>
 </plist>

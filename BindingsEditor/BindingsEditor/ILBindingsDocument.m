@@ -77,7 +77,7 @@
 
 - (BOOL)readFromData:(NSData *)data ofType:(NSString *)typeName error:(NSError **)outError
 {
-    NSSet* defs = [ILBindingDefinition definitionsWithPropertyListData:data definitionsByKey:NULL error:outError];
+    NSSet* defs = [ILBindingDefinition definitionsWithPropertyListData:data options:kILBindingDefinitionAllowDuplicateKeys definitionsByKey:NULL error:outError];
     
     if (defs)
         self.definitions = [[[defs allObjects] mutableCopy] autorelease];

@@ -369,6 +369,7 @@
 				GCC_PREFIX_HEADER = "BindingsEditor/BindingsEditor-Prefix.pch";
 				INFOPLIST_FILE = "BindingsEditor/BindingsEditor-Info.plist";
 				MACOSX_DEPLOYMENT_TARGET = 10.6;
+				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				USER_HEADER_SEARCH_PATHS = "\"$(SRCROOT)\"/../Binding";
 				WRAPPER_EXTENSION = app;
@@ -383,6 +384,7 @@
 				GCC_PREFIX_HEADER = "BindingsEditor/BindingsEditor-Prefix.pch";
 				INFOPLIST_FILE = "BindingsEditor/BindingsEditor-Info.plist";
 				MACOSX_DEPLOYMENT_TARGET = 10.6;
+				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				USER_HEADER_SEARCH_PATHS = "\"$(SRCROOT)\"/../Binding";
 				WRAPPER_EXTENSION = app;

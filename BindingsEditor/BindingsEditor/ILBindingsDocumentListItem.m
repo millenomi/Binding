@@ -8,11 +8,23 @@
 
 #import "ILBindingsDocumentListItem.h"
 
+#define ILKey(x) @#x
+
 @implementation ILBindingsDocumentListItem
 
 - (id) init;
 {
     return [self initWithNibName:@"ILBindingsDocumentListItem" bundle:nil];
+}
+
++ (NSSet *)keyPathsForValuesAffectingBindingDefinition;
+{
+    return [NSSet setWithObject:ILKey(representedObject)];
+}
+
+- (ILMutableBindingDefinition *)bindingDefinition;
+{
+    return (ILMutableBindingDefinition*) self.representedObject;
 }
 
 @end

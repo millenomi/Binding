@@ -193,7 +193,7 @@
     
     if (self.pathToTarget)
         [dictionary setObject:self.pathToTarget forKey:kILBindingDefinitionPathToTargetKey];
-
+    
     [dictionary setObject:self.sourceKeyPath forKey:kILBindingDefinitionSourceKeyPathKey];
     [dictionary setObject:self.targetKeyPath forKey:kILBindingDefinitionTargetKeyPathKey];
     

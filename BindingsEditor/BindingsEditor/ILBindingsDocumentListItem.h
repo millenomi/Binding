@@ -8,6 +8,10 @@
 
 #import <Cocoa/Cocoa.h>
 
+#import "ILBindingDefinition.h"
+
 @interface ILBindingsDocumentListItem : NSCollectionViewItem
+
+@property(readonly, nonatomic) ILMutableBindingDefinition* bindingDefinition;
 
 @end

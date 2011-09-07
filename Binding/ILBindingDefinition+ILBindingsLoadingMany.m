@@ -23,7 +23,7 @@
         return nil;
     }
 
-    return [self definitionsWithContentsOfURL:url definitionsByKey:byKey error:error];
+    return [self definitionsWithContentsOfURL:url options:0 definitionsByKey:byKey error:error];
 }
 
 + (NSData*) propertyListDataWithDefinitions:(NSSet*) definitions error:(NSError**) error;
@@ -31,7 +31,7 @@
     NSMutableDictionary* dictionary = [NSMutableDictionary dictionary];
     NSMutableArray* definitionPlists = [NSMutableArray arrayWithCapacity:definitions.count];
     
-    for (ILBindingDefinition* definition in definitionPlists)
+    for (ILBindingDefinition* definition in definitions)
         [definitionPlists addObject:definition.propertyListRepresentation];
     
     [dictionary setObject:definitionPlists forKey:kILBindingDefinitionContainerKey];
@@ -48,12 +48,12 @@
     return [data writeToURL:url options:NSDataWritingAtomic error:error];
 }
 
-+ (NSSet*) definitionsWithContentsOfURL:(NSURL*) url definitionsByKey:(NSDictionary**) byKey error:(NSError**) error;
++ (NSSet*) definitionsWithContentsOfURL:(NSURL*) url options:(ILBindingDefinitionLoadingManyOptions) opts  definitionsByKey:(NSDictionary**) byKey error:(NSError**) error;
 {
-    return [self definitionsWithPropertyListData:[NSData dataWithContentsOfURL:url] definitionsByKey:byKey error:error];
+    return [self definitionsWithPropertyListData:[NSData dataWithContentsOfURL:url] options:opts definitionsByKey:byKey error:error];
 }
 
-+ (NSSet*) definitionsWithPropertyListData:(NSData*) data definitionsByKey:(NSDictionary**) byKey error:(NSError**) error;
++ (NSSet*) definitionsWithPropertyListData:(NSData*) data options:(ILBindingDefinitionLoadingManyOptions) opts definitionsByKey:(NSDictionary**) byKey error:(NSError**) error;
 {
     id plist = [NSPropertyListSerialization propertyListWithData:data options:0 format:NULL error:error];
     if (!plist)
@@ -82,7 +82,7 @@
             return nil;
         
         if (definition.key && ![definition.key isEqualToString:@""]) {
-            if ([resultsByKey objectForKey:definition.key]) {
+            if ((opts & kILBindingDefinitionAllowDuplicateKeys) == 0 && [resultsByKey objectForKey:definition.key]) {
                 if (error) {
                     NSDictionary* info = [NSDictionary dictionaryWithObject:definition.key forKey:kILBindingDefinitionErrorSourceKey];
                     *error = [NSError errorWithDomain:kILBindingDefinitionErrorDomain code:kILBindingDefinitionErrorDuplicateKey userInfo:info];                  
