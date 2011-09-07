@@ -34,7 +34,7 @@
 @end
 
 
-@interface ILBindingsDocument ()
+@interface ILBindingsDocument () <NSWindowDelegate>
 @property(retain, nonatomic) NSMutableArray* definitions;
 @property(copy, nonatomic) NSIndexSet* selectedIndexes;
 @end
@@ -56,6 +56,11 @@
 
 - (void)dealloc {
     self.list.document = nil;
+
+    for (NSWindowController* ctl in self.windowControllers) {
+        if ([ctl isWindowLoaded] && ctl.window.delegate == self)
+            ctl.window.delegate = nil;
+    }
     
     [list release];
     [definitions release];
@@ -71,6 +76,13 @@
 - (void)windowControllerDidLoadNib:(NSWindowController *)aController
 {
     [super windowControllerDidLoadNib:aController];
+    
+    aController.window.delegate = self;
+}
+
+- (NSSize)windowWillResize:(NSWindow *)sender toSize:(NSSize)frameSize;
+{
+    return NSMakeSize(sender.frame.size.width, frameSize.height);
 }
 
 - (NSData *)dataOfType:(NSString *)typeName error:(NSError **)outError

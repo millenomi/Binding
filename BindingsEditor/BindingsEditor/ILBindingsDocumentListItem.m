@@ -11,6 +11,12 @@
 
 #define ILKey(x) @#x
 
+@interface ILBindingsDocumentListItem ()
+
+@property(readonly, nonatomic) ILBindingsDocument* document;
+
+@end
+
 @implementation ILBindingsDocumentListItem {
     BOOL lastSetValueWasCustom;
 }
@@ -112,8 +118,18 @@
 - (IBAction)delete:(id)sender;
 {
     ILBindingsDocumentList* list = (ILBindingsDocumentList*) self.collectionView;
-    
     [list.document removeBinding:self.representedObject];
+}
+
+- (BOOL)isInViewingMode;
+{
+    return [self.document isInViewingMode];
+}
+
+- (ILBindingsDocument*) document;
+{
+    ILBindingsDocumentList* list = (ILBindingsDocumentList*) self.collectionView;
+    return list.document;
 }
 
 @end

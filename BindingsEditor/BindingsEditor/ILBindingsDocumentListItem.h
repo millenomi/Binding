@@ -27,4 +27,6 @@ typedef enum {
 
 - (IBAction)delete:(id)sender;
 
+@property(readonly, nonatomic, getter = isInViewingMode) BOOL inViewingMode;
+
 @end

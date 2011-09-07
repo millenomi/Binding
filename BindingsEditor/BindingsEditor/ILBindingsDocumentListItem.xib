@@ -713,6 +713,26 @@
 				</object>
 				<object class="IBConnectionRecord">
 					<object class="IBBindingConnection" key="connection">
+						<string key="label">enabled: inViewingMode</string>
+						<reference key="source" ref="414792606"/>
+						<reference key="destination" ref="1001"/>
+						<object class="NSNibBindingConnector" key="connector">
+							<reference key="NSSource" ref="414792606"/>
+							<reference key="NSDestination" ref="1001"/>
+							<string key="NSLabel">enabled: inViewingMode</string>
+							<string key="NSBinding">enabled</string>
+							<string key="NSKeyPath">inViewingMode</string>
+							<object class="NSDictionary" key="NSOptions">
+								<string key="NS.key.0">NSValueTransformerName</string>
+								<string key="NS.object.0">NSNegateBoolean</string>
+							</object>
+							<int key="NSNibBindingConnectorVersion">2</int>
+						</object>
+					</object>
+					<int key="connectionID">98</int>
+				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBBindingConnection" key="connection">
 						<string key="label">value: bindingDefinition.key</string>
 						<reference key="source" ref="294721190"/>
 						<reference key="destination" ref="1001"/>
@@ -733,19 +753,23 @@
 				</object>
 				<object class="IBConnectionRecord">
 					<object class="IBBindingConnection" key="connection">
-						<string key="label">hidden: hasNoValueTransformerName</string>
-						<reference key="source" ref="993147071"/>
+						<string key="label">enabled: inViewingMode</string>
+						<reference key="source" ref="294721190"/>
 						<reference key="destination" ref="1001"/>
 						<object class="NSNibBindingConnector" key="connector">
-							<reference key="NSSource" ref="993147071"/>
+							<reference key="NSSource" ref="294721190"/>
 							<reference key="NSDestination" ref="1001"/>
-							<string key="NSLabel">hidden: hasNoValueTransformerName</string>
-							<string key="NSBinding">hidden</string>
-							<string key="NSKeyPath">hasNoValueTransformerName</string>
+							<string key="NSLabel">enabled: inViewingMode</string>
+							<string key="NSBinding">enabled</string>
+							<string key="NSKeyPath">inViewingMode</string>
+							<object class="NSDictionary" key="NSOptions">
+								<string key="NS.key.0">NSValueTransformerName</string>
+								<string key="NS.object.0">NSNegateBoolean</string>
+							</object>
 							<int key="NSNibBindingConnectorVersion">2</int>
 						</object>
 					</object>
-					<int key="connectionID">84</int>
+					<int key="connectionID">110</int>
 				</object>
 				<object class="IBConnectionRecord">
 					<object class="IBBindingConnection" key="connection">
@@ -769,6 +793,43 @@
 				</object>
 				<object class="IBConnectionRecord">
 					<object class="IBBindingConnection" key="connection">
+						<string key="label">enabled: inViewingMode</string>
+						<reference key="source" ref="993147071"/>
+						<reference key="destination" ref="1001"/>
+						<object class="NSNibBindingConnector" key="connector" id="209638396">
+							<reference key="NSSource" ref="993147071"/>
+							<reference key="NSDestination" ref="1001"/>
+							<string key="NSLabel">enabled: inViewingMode</string>
+							<string key="NSBinding">enabled</string>
+							<string key="NSKeyPath">inViewingMode</string>
+							<object class="NSDictionary" key="NSOptions">
+								<string key="NS.key.0">NSValueTransformerName</string>
+								<string key="NS.object.0">NSNegateBoolean</string>
+							</object>
+							<int key="NSNibBindingConnectorVersion">2</int>
+						</object>
+					</object>
+					<int key="connectionID">107</int>
+				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBBindingConnection" key="connection">
+						<string key="label">hidden: hasNoValueTransformerName</string>
+						<reference key="source" ref="993147071"/>
+						<reference key="destination" ref="1001"/>
+						<object class="NSNibBindingConnector" key="connector">
+							<reference key="NSSource" ref="993147071"/>
+							<reference key="NSDestination" ref="1001"/>
+							<string key="NSLabel">hidden: hasNoValueTransformerName</string>
+							<string key="NSBinding">hidden</string>
+							<string key="NSKeyPath">hasNoValueTransformerName</string>
+							<reference key="NSPreviousConnector" ref="209638396"/>
+							<int key="NSNibBindingConnectorVersion">2</int>
+						</object>
+					</object>
+					<int key="connectionID">108</int>
+				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBBindingConnection" key="connection">
 						<string key="label">selectedTag: valueTransformerDescription</string>
 						<reference key="source" ref="589854534"/>
 						<reference key="destination" ref="1001"/>
@@ -785,6 +846,26 @@
 				</object>
 				<object class="IBConnectionRecord">
 					<object class="IBBindingConnection" key="connection">
+						<string key="label">enabled: inViewingMode</string>
+						<reference key="source" ref="589854534"/>
+						<reference key="destination" ref="1001"/>
+						<object class="NSNibBindingConnector" key="connector">
+							<reference key="NSSource" ref="589854534"/>
+							<reference key="NSDestination" ref="1001"/>
+							<string key="NSLabel">enabled: inViewingMode</string>
+							<string key="NSBinding">enabled</string>
+							<string key="NSKeyPath">inViewingMode</string>
+							<object class="NSDictionary" key="NSOptions">
+								<string key="NS.key.0">NSValueTransformerName</string>
+								<string key="NS.object.0">NSNegateBoolean</string>
+							</object>
+							<int key="NSNibBindingConnectorVersion">2</int>
+						</object>
+					</object>
+					<int key="connectionID">104</int>
+				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBBindingConnection" key="connection">
 						<string key="label">selectedTag: bindingDefinition.direction</string>
 						<reference key="source" ref="982472632"/>
 						<reference key="destination" ref="1001"/>
@@ -798,6 +879,26 @@
 						</object>
 					</object>
 					<int key="connectionID">82</int>
+				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBBindingConnection" key="connection">
+						<string key="label">enabled: inViewingMode</string>
+						<reference key="source" ref="982472632"/>
+						<reference key="destination" ref="1001"/>
+						<object class="NSNibBindingConnector" key="connector">
+							<reference key="NSSource" ref="982472632"/>
+							<reference key="NSDestination" ref="1001"/>
+							<string key="NSLabel">enabled: inViewingMode</string>
+							<string key="NSBinding">enabled</string>
+							<string key="NSKeyPath">inViewingMode</string>
+							<object class="NSDictionary" key="NSOptions">
+								<string key="NS.key.0">NSValueTransformerName</string>
+								<string key="NS.object.0">NSNegateBoolean</string>
+							</object>
+							<int key="NSNibBindingConnectorVersion">2</int>
+						</object>
+					</object>
+					<int key="connectionID">102</int>
 				</object>
 				<object class="IBConnectionRecord">
 					<object class="IBBindingConnection" key="connection">
@@ -821,6 +922,26 @@
 				</object>
 				<object class="IBConnectionRecord">
 					<object class="IBBindingConnection" key="connection">
+						<string key="label">enabled: inViewingMode</string>
+						<reference key="source" ref="174652216"/>
+						<reference key="destination" ref="1001"/>
+						<object class="NSNibBindingConnector" key="connector">
+							<reference key="NSSource" ref="174652216"/>
+							<reference key="NSDestination" ref="1001"/>
+							<string key="NSLabel">enabled: inViewingMode</string>
+							<string key="NSBinding">enabled</string>
+							<string key="NSKeyPath">inViewingMode</string>
+							<object class="NSDictionary" key="NSOptions">
+								<string key="NS.key.0">NSValueTransformerName</string>
+								<string key="NS.object.0">NSNegateBoolean</string>
+							</object>
+							<int key="NSNibBindingConnectorVersion">2</int>
+						</object>
+					</object>
+					<int key="connectionID">100</int>
+				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBBindingConnection" key="connection">
 						<string key="label">value: bindingDefinition.pathToTarget</string>
 						<reference key="source" ref="328681484"/>
 						<reference key="destination" ref="1001"/>
@@ -841,6 +962,26 @@
 				</object>
 				<object class="IBConnectionRecord">
 					<object class="IBBindingConnection" key="connection">
+						<string key="label">enabled: inViewingMode</string>
+						<reference key="source" ref="328681484"/>
+						<reference key="destination" ref="1001"/>
+						<object class="NSNibBindingConnector" key="connector">
+							<reference key="NSSource" ref="328681484"/>
+							<reference key="NSDestination" ref="1001"/>
+							<string key="NSLabel">enabled: inViewingMode</string>
+							<string key="NSBinding">enabled</string>
+							<string key="NSKeyPath">inViewingMode</string>
+							<object class="NSDictionary" key="NSOptions">
+								<string key="NS.key.0">NSValueTransformerName</string>
+								<string key="NS.object.0">NSNegateBoolean</string>
+							</object>
+							<int key="NSNibBindingConnectorVersion">2</int>
+						</object>
+					</object>
+					<int key="connectionID">96</int>
+				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBBindingConnection" key="connection">
 						<string key="label">value: bindingDefinition.pathToSource</string>
 						<reference key="source" ref="311678727"/>
 						<reference key="destination" ref="1001"/>
@@ -858,6 +999,26 @@
 						</object>
 					</object>
 					<int key="connectionID">86</int>
+				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBBindingConnection" key="connection">
+						<string key="label">enabled: inViewingMode</string>
+						<reference key="source" ref="311678727"/>
+						<reference key="destination" ref="1001"/>
+						<object class="NSNibBindingConnector" key="connector">
+							<reference key="NSSource" ref="311678727"/>
+							<reference key="NSDestination" ref="1001"/>
+							<string key="NSLabel">enabled: inViewingMode</string>
+							<string key="NSBinding">enabled</string>
+							<string key="NSKeyPath">inViewingMode</string>
+							<object class="NSDictionary" key="NSOptions">
+								<string key="NS.key.0">NSValueTransformerName</string>
+								<string key="NS.object.0">NSNegateBoolean</string>
+							</object>
+							<int key="NSNibBindingConnectorVersion">2</int>
+						</object>
+					</object>
+					<int key="connectionID">94</int>
 				</object>
 				<object class="IBConnectionRecord">
 					<object class="IBBindingConnection" key="connection">
@@ -890,6 +1051,22 @@
 						</object>
 					</object>
 					<int key="connectionID">79</int>
+				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBBindingConnection" key="connection">
+						<string key="label">hidden: inViewingMode</string>
+						<reference key="source" ref="911322690"/>
+						<reference key="destination" ref="1001"/>
+						<object class="NSNibBindingConnector" key="connector">
+							<reference key="NSSource" ref="911322690"/>
+							<reference key="NSDestination" ref="1001"/>
+							<string key="NSLabel">hidden: inViewingMode</string>
+							<string key="NSBinding">hidden</string>
+							<string key="NSKeyPath">inViewingMode</string>
+							<int key="NSNibBindingConnectorVersion">2</int>
+						</object>
+					</object>
+					<int key="connectionID">111</int>
 				</object>
 			</array>
 			<object class="IBMutableOrderedSet" key="objectRecords">
@@ -1340,7 +1517,7 @@
 			<nil key="activeLocalization"/>
 			<dictionary class="NSMutableDictionary" key="localizations"/>
 			<nil key="sourceID"/>
-			<int key="maxID">92</int>
+			<int key="maxID">111</int>
 		</object>
 		<object class="IBClassDescriber" key="IBDocument.Classes">
 			<array class="NSMutableArray" key="referencedPartialClassDescriptions">
