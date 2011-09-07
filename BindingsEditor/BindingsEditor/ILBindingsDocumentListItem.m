@@ -34,7 +34,7 @@
 
 + (NSSet *)keyPathsForValuesAffectingValueTransformerDescription;
 {
-    return [NSSet setWithObject:@"bindingDefinition.valueTransformerName"];
+    return [NSSet setWithObject:@"representedObject.valueTransformerName"];
 }
 
 - (ILBindingsDocumentValueTransformerDescription) valueTransformerDescription;

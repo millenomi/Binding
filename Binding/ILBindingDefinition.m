@@ -260,13 +260,12 @@
 
 - (id) copyWithClass:(Class) cls;
 {
-    ILBindingOptions* opts = [ILBindingOptions optionsWithDefaultValues];
-    opts.direction = self.direction;
+    ILBindingDefinition* def = [cls new];
     
-    if (self.valueTransformerName)
-        opts.valueTransformer = [NSValueTransformer valueTransformerForName:self.valueTransformerName];
+    for (NSString* KVOKey in [ILMutableBindingDefinition allObservableKeys]) // TODO a better way to store those
+        [def setValue:[self valueForKey:KVOKey] forKey:KVOKey];
     
-    return [[cls alloc] initWithPathToSource:self.pathToSource boundSourceKeyPath:self.sourceKeyPath pathToTarget:self.pathToTarget boundTargetKeyPath:self.targetKeyPath options:opts key:self.key];
+    return def;
 }
 
 - (id)copyWithZone:(NSZone *)zone;
@@ -283,6 +282,8 @@
 
 
 @implementation ILMutableBindingDefinition
+
+- (id) init { return [super init]; }
 
 #define ILBindingDefinitionCallSuperForProperty(getter, setter, type) \
     - (type) getter { return [super getter]; } \

@@ -20,9 +20,6 @@ typedef enum {
 // Loading a definition from a plist
 - (id) initWithPropertyListRepresentation:(id) plist options:(ILBindingLoadingOptions) options error:(NSError**) error;
 
-// Creating a definition from scratch (eg for saving via propertyListRepresentation)
-- (id) initWithPathToSource:(NSString*) pts boundSourceKeyPath:(NSString*) sourcePath pathToTarget:(NSString*) ptt boundTargetKeyPath:(NSString*) targetKeyPath options:(ILBindingOptions*) options key:(NSString*) optionalKey;
-
 - (ILBinding*) bindingWithOwner:(id) owner options:(ILBindingOptions*) opts;
 - (ILBinding*) bindingWithSourceObject:(id) source targetObject:(id) target options:(ILBindingOptions*) opts;
 
@@ -48,6 +45,8 @@ enum {
 @interface ILMutableBindingDefinition : ILBindingDefinition
 
 + (NSSet*) allObservableKeys;
+
+- (id) init;
 
 @property(copy, nonatomic) NSString* key;
 
