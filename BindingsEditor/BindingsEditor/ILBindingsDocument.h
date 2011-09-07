@@ -8,12 +8,21 @@
 
 #import <Cocoa/Cocoa.h>
 
+#import "ILBindingDefinition.h"
+
+@class ILBindingsDocumentList;
+
 @interface ILBindingsDocument : NSDocument
 
-- (IBAction)addBinding:(id)sender;
+- (IBAction)addBinding:(id) sender;
+- (void) removeBinding:(ILMutableBindingDefinition*) binding;
+
+@property (retain) IBOutlet ILBindingsDocumentList *list;
+
 @end
 
 
 @interface ILBindingsDocumentList : NSCollectionView
+@property(assign, nonatomic) IBOutlet ILBindingsDocument* document;
 @end
 

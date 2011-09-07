@@ -54,7 +54,7 @@
 @synthesize direction;
 @synthesize valueTransformerName;
 
-- (id) initWithPropertyListRepresentation:(id) plist error:(NSError**) error;
+- (id) initWithPropertyListRepresentation:(id) plist options:(ILBindingLoadingOptions) options error:(NSError**) error;
 {
     self = [super init];
     if (self) {
@@ -65,9 +65,11 @@
             return nil;
         }
         
+        BOOL validates = (options & kILBindingLoadingAllowIncompletePropertyList) == 0;
+        
 #define ILBindingDefinitionSetOrReturnError(what, key, valueClass, allowable) \
     what = [self objectForKey:key inDictionary:plist assumingOfClass:valueClass allowableValues:allowable error:error]; \
-    if (!what) { [self release]; return nil; }
+    if (validates && !what) { [self release]; return nil; }
         
         // --------------------
         // Required stuff
@@ -88,7 +90,7 @@
         
 #define ILBindingDefinitionSetOptionallyOrReturnError(what, key, valueClass, allowable) \
     what = [self objectForKey:key inDictionary:plist assumingOfClass:valueClass allowableValues:allowable error:&optionalError]; \
-    if (!what && ([[optionalError domain] isEqualToString:kILBindingDefinitionErrorDomain] || [optionalError code] != kILBindingDefinitionErrorMissingEntry)) { \
+    if (!what && !([[optionalError domain] isEqualToString:kILBindingDefinitionErrorDomain] && [optionalError code] == kILBindingDefinitionErrorMissingEntry)) { \
             if (error) *error = optionalError; \
             [self release]; return nil; \
     }
@@ -106,6 +108,19 @@
         
         if ([self.key isEqualToString:@""])
             self.key = nil;
+        
+        // Paths to source and target
+        
+        ILBindingDefinitionSetOptionallyOrReturnError(self.pathToSource, kILBindingDefinitionPathToSourceKey, [NSString class], nil);
+        
+        if ([self.pathToSource isEqualToString:@""])
+            self.key = nil;
+        
+        ILBindingDefinitionSetOptionallyOrReturnError(self.pathToTarget, kILBindingDefinitionPathToTargetKey, [NSString class], nil);
+        
+        if ([self.pathToTarget isEqualToString:@""])
+            self.pathToTarget = nil;
+        
         
 #undef ILBindingDefinitionSetOptionallyOrReturnError
 #undef ILBindingDefinitionSetOrReturnError
@@ -194,8 +209,11 @@
     if (self.pathToTarget)
         [dictionary setObject:self.pathToTarget forKey:kILBindingDefinitionPathToTargetKey];
     
-    [dictionary setObject:self.sourceKeyPath forKey:kILBindingDefinitionSourceKeyPathKey];
-    [dictionary setObject:self.targetKeyPath forKey:kILBindingDefinitionTargetKeyPathKey];
+    if (self.sourceKeyPath)
+        [dictionary setObject:self.sourceKeyPath forKey:kILBindingDefinitionSourceKeyPathKey];
+    
+    if (self.targetKeyPath)
+        [dictionary setObject:self.targetKeyPath forKey:kILBindingDefinitionTargetKeyPathKey];
     
     [dictionary setObject:[NSNumber numberWithUnsignedInteger:self.direction] forKey:kILBindingDefinitionDirectionKey];
     

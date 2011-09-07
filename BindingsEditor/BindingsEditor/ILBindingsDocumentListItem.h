@@ -10,8 +10,21 @@
 
 #import "ILBindingDefinition.h"
 
+typedef enum {
+    kILBindingsDocumentValueTransformerNone = 1,
+    kILBindingsDocumentValueTransformerNegateBoolean,
+    kILBindingsDocumentValueTransformerIsNil,
+    kILBindingsDocumentValueTransformerIsNotNil,
+    kILBindingsDocumentValueTransformerKeyedArchive,
+    kILBindingsDocumentValueTransformerCustom,
+} ILBindingsDocumentValueTransformerDescription;
+
 @interface ILBindingsDocumentListItem : NSCollectionViewItem
 
 @property(readonly, nonatomic) ILMutableBindingDefinition* bindingDefinition;
+
+@property(nonatomic) ILBindingsDocumentValueTransformerDescription valueTransformerDescription;
+
+- (IBAction)delete:(id)sender;
 
 @end

@@ -11,10 +11,14 @@
 #import "ILBinding.h"
 #import "ILBindingOptions.h"
 
+typedef enum {
+    kILBindingLoadingAllowIncompletePropertyList = 1 << 0,
+} ILBindingLoadingOptions;
+
 @interface ILBindingDefinition : NSObject <NSCopying, NSMutableCopying>
 
 // Loading a definition from a plist
-- (id) initWithPropertyListRepresentation:(id) plist error:(NSError**) error;
+- (id) initWithPropertyListRepresentation:(id) plist options:(ILBindingLoadingOptions) options error:(NSError**) error;
 
 // Creating a definition from scratch (eg for saving via propertyListRepresentation)
 - (id) initWithPathToSource:(NSString*) pts boundSourceKeyPath:(NSString*) sourcePath pathToTarget:(NSString*) ptt boundTargetKeyPath:(NSString*) targetKeyPath options:(ILBindingOptions*) options key:(NSString*) optionalKey;

@@ -15,6 +15,8 @@
 
 @implementation ILBindingsDocumentList
 
+@synthesize document;
+
 - (void)awakeFromNib;
 {
     self.maxItemSize = NSMakeSize(self.frame.size.width, 263);
@@ -38,6 +40,7 @@
 @end
 
 @implementation ILBindingsDocument
+@synthesize list;
 
 @synthesize definitions, selectedIndexes;
 
@@ -54,6 +57,9 @@
 }
 
 - (void)dealloc {
+    self.list.document = nil;
+    
+    [list release];
     [definitions release];
     [selectedIndexes release];
     [super dealloc];
@@ -77,10 +83,16 @@
 
 - (BOOL)readFromData:(NSData *)data ofType:(NSString *)typeName error:(NSError **)outError
 {
-    NSSet* defs = [ILBindingDefinition definitionsWithPropertyListData:data options:kILBindingDefinitionAllowDuplicateKeys definitionsByKey:NULL error:outError];
+    NSSet* defs = [ILBindingDefinition definitionsWithPropertyListData:data options:kILBindingLoadingAllowIncompleteOrDuplicateDefinitions definitionsByKey:NULL error:outError];
     
-    if (defs)
-        self.definitions = [[[defs allObjects] mutableCopy] autorelease];
+    if (defs) {
+        NSMutableArray* mutableCopies = [NSMutableArray arrayWithCapacity:defs.count];
+        
+        for (ILBindingDefinition* def in defs)
+            [mutableCopies addObject:[[def mutableCopy] autorelease]];
+        
+        self.definitions = mutableCopies;
+    }
     
     return defs != nil;
 }
@@ -96,6 +108,11 @@
     
     [[self mutableArrayValueForKey:@"definitions"] addObject:definition];
     self.selectedIndexes = [NSIndexSet indexSetWithIndex:self.definitions.count - 1];
+}
+
+- (void) removeBinding:(ILMutableBindingDefinition*) binding;
+{
+    [[self mutableArrayValueForKey:@"definitions"] removeObject:binding];
 }
 
 @end
