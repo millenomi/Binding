@@ -47,6 +47,8 @@ enum {
 
 @interface ILMutableBindingDefinition : ILBindingDefinition
 
++ (NSSet*) allObservableKeys;
+
 @property(copy, nonatomic) NSString* key;
 
 @property(copy, nonatomic) NSString* pathToSource, * pathToTarget;

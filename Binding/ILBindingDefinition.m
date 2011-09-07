@@ -296,4 +296,17 @@ ILBindingDefinitionCallSuperForProperty(targetKeyPath, setTargetKeyPath:, NSStri
 ILBindingDefinitionCallSuperForProperty(direction, setDirection:, ILBindingDirection)
 ILBindingDefinitionCallSuperForProperty(valueTransformerName, setValueTransformerName:, NSString*)
 
++ (NSSet*) allObservableKeys;
+{
+    return [NSSet setWithObjects:
+            @"key",
+            @"pathToSource",
+            @"pathToTarget",
+            @"sourceKeyPath",
+            @"targetKeyPath",
+            @"direction",
+            @"valueTransformerName",
+            nil];
+}
+
 @end

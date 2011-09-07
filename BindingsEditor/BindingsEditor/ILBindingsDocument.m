@@ -49,8 +49,6 @@
     self = [super init];
     if (self) {
         self.definitions = [NSMutableArray array];
-        
-        [self addBinding:self];
         [self addBinding:self];
     }
     return self;
@@ -73,7 +71,6 @@
 - (void)windowControllerDidLoadNib:(NSWindowController *)aController
 {
     [super windowControllerDidLoadNib:aController];
-    
 }
 
 - (NSData *)dataOfType:(NSString *)typeName error:(NSError **)outError
@@ -113,6 +110,32 @@
 - (void) removeBinding:(ILMutableBindingDefinition*) binding;
 {
     [[self mutableArrayValueForKey:@"definitions"] removeObject:binding];
+}
+
+#pragma mark - Undo support
+
+- (void)insertObject:(ILMutableBindingDefinition *)definition inDefinitionsAtIndex:(NSUInteger)index;
+{
+    for (NSString* key in [ILMutableBindingDefinition allObservableKeys])
+        [definition addObserver:self forKeyPath:key options:NSKeyValueObservingOptionOld context:NULL];
+    
+    [definitions insertObject:definition atIndex:index];
+}
+
+- (void)removeObjectFromDefinitionsAtIndex:(NSUInteger)index;
+{
+    ILMutableBindingDefinition* definition = [definitions objectAtIndex:index];
+    
+    for (NSString* key in [ILMutableBindingDefinition allObservableKeys])
+        [definition removeObserver:self forKeyPath:key];
+    
+    [definitions removeObjectAtIndex:index];
+}
+
+- (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context;
+{
+    NSAssert([[change objectForKey:NSKeyValueChangeKindKey] unsignedIntegerValue] == NSKeyValueChangeSetting, @"Only set operations are assumed to occur on ILMutableBindingDefinition keys");
+    [[self.undoManager prepareWithInvocationTarget:object] setValue:[change objectForKey:NSKeyValueChangeOldKey] forKeyPath:keyPath];
 }
 
 @end
