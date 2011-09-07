@@ -12,3 +12,8 @@
 
 - (IBAction)addBinding:(id)sender;
 @end
+
+
+@interface ILBindingsDocumentList : NSCollectionView
+@end
+

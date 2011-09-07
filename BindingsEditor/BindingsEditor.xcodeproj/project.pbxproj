@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		151ADAB714176B9C001671A5 /* ILBindingsDocumentListItem.m in Sources */ = {isa = PBXBuildFile; fileRef = 151ADAB514176B9C001671A5 /* ILBindingsDocumentListItem.m */; };
+		151ADAB814176B9C001671A5 /* ILBindingsDocumentListItem.xib in Resources */ = {isa = PBXBuildFile; fileRef = 151ADAB614176B9C001671A5 /* ILBindingsDocumentListItem.xib */; };
 		1549F58E14169A9300BD5A8C /* ILBindingsEditorAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 1549F58D14169A9300BD5A8C /* ILBindingsEditorAppDelegate.m */; };
 		1551418214164E2A007CA046 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1551418114164E2A007CA046 /* Cocoa.framework */; };
 		1551418C14164E2A007CA046 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 1551418A14164E2A007CA046 /* InfoPlist.strings */; };
@@ -51,6 +53,9 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		151ADAB414176B9C001671A5 /* ILBindingsDocumentListItem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ILBindingsDocumentListItem.h; sourceTree = "<group>"; };
+		151ADAB514176B9C001671A5 /* ILBindingsDocumentListItem.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ILBindingsDocumentListItem.m; sourceTree = "<group>"; };
+		151ADAB614176B9C001671A5 /* ILBindingsDocumentListItem.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ILBindingsDocumentListItem.xib; sourceTree = "<group>"; };
 		1549F58C14169A9300BD5A8C /* ILBindingsEditorAppDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ILBindingsEditorAppDelegate.h; sourceTree = "<group>"; };
 		1549F58D14169A9300BD5A8C /* ILBindingsEditorAppDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ILBindingsEditorAppDelegate.m; sourceTree = "<group>"; };
 		1551417D14164E2A007CA046 /* BindingsEditor.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = BindingsEditor.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -127,6 +132,9 @@
 				1551419314164E2A007CA046 /* ILBindingsDocument.h */,
 				1551419414164E2A007CA046 /* ILBindingsDocument.m */,
 				1551419614164E2B007CA046 /* ILBindingsDocument.xib */,
+				151ADAB414176B9C001671A5 /* ILBindingsDocumentListItem.h */,
+				151ADAB514176B9C001671A5 /* ILBindingsDocumentListItem.m */,
+				151ADAB614176B9C001671A5 /* ILBindingsDocumentListItem.xib */,
 				1551419914164E2B007CA046 /* MainMenu.xib */,
 				155141D614165953007CA046 /* Add.png */,
 				1551418814164E2A007CA046 /* Supporting Files */,
@@ -244,6 +252,7 @@
 				1551419814164E2B007CA046 /* ILBindingsDocument.xib in Resources */,
 				1551419B14164E2B007CA046 /* MainMenu.xib in Resources */,
 				155141D714165953007CA046 /* Add.png in Resources */,
+				151ADAB814176B9C001671A5 /* ILBindingsDocumentListItem.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -257,6 +266,7 @@
 				1551418E14164E2A007CA046 /* main.m in Sources */,
 				1551419514164E2A007CA046 /* ILBindingsDocument.m in Sources */,
 				1549F58E14169A9300BD5A8C /* ILBindingsEditorAppDelegate.m in Sources */,
+				151ADAB714176B9C001671A5 /* ILBindingsDocumentListItem.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

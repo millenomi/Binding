@@ -25,7 +25,7 @@
     }
     
     if (hasXcodeRunning) {
-        for (NSDocument* doc in [[NSDocumentController sharedDocumentController] orderedDocuments]) {
+        for (NSDocument* doc in [[NSDocumentController sharedDocumentController] documents]) {
             if ([doc isKindOfClass:[ILBindingsDocument class]] && doc.fileURL)
                 [doc saveDocument:self];
         }

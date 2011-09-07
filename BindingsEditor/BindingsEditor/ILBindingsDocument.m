@@ -11,6 +11,27 @@
 #import "ILBindingDefinition.h"
 #import "ILBindingDefinition+ILBindingsLoadingMany.h"
 
+#import "ILBindingsDocumentListItem.h"
+
+@implementation ILBindingsDocumentList
+
+- (void)awakeFromNib;
+{
+    self.maxItemSize = NSMakeSize(self.frame.size.width, 263);
+    self.minItemSize = self.maxItemSize;
+}
+
+- (NSCollectionViewItem *)newItemForRepresentedObject:(id)object;
+{
+    ILBindingsDocumentListItem* item = [ILBindingsDocumentListItem new];
+    item.representedObject = object;
+    
+    return item;
+}
+
+@end
+
+
 @interface ILBindingsDocument ()
 @property(retain, nonatomic) NSMutableArray* definitions;
 @property(copy, nonatomic) NSIndexSet* selectedIndexes;
@@ -26,6 +47,7 @@
     if (self) {
         self.definitions = [NSMutableArray array];
         
+        [self addBinding:self];
         [self addBinding:self];
     }
     return self;
