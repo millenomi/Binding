@@ -39,7 +39,7 @@
     self = [super init];
     if (self) {
         
-        NSSet* allDefinitions = [ILBindingDefinition definitionsInResourceNamed:resource withExtension:extension bundle:bundle definitionsByKey:NULL error:error];
+        NSArray* allDefinitions = [ILBindingDefinition definitionsInResourceNamed:resource withExtension:extension bundle:bundle definitionsByKey:NULL error:error];
         
         NSMutableSet* bindings = [NSMutableSet setWithCapacity:allDefinitions.count];
         NSMutableDictionary* bindingsByKey = [NSMutableDictionary dictionaryWithCapacity:allDefinitions.count];

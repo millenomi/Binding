@@ -92,7 +92,7 @@
 
 - (BOOL)readFromData:(NSData *)data ofType:(NSString *)typeName error:(NSError **)outError
 {
-    NSSet* defs = [ILBindingDefinition definitionsWithPropertyListData:data options:kILBindingLoadingAllowIncompleteOrDuplicateDefinitions definitionsByKey:NULL error:outError];
+    NSArray* defs = [ILBindingDefinition definitionsWithPropertyListData:data options:kILBindingLoadingAllowIncompleteOrDuplicateDefinitions definitionsByKey:NULL error:outError];
     
     if (defs) {
         NSMutableArray* mutableCopies = [NSMutableArray arrayWithCapacity:defs.count];

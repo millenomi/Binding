@@ -12,7 +12,7 @@
 
 @implementation ILBindingDefinition (ILBindingsLoadingMany)
 
-+ (NSSet*) definitionsInResourceNamed:(NSString*) resource withExtension:(NSString*) extension bundle:(NSBundle*) bundle definitionsByKey:(NSDictionary**) byKey error:(NSError**) error;
++ (NSArray*) definitionsInResourceNamed:(NSString*) resource withExtension:(NSString*) extension bundle:(NSBundle*) bundle definitionsByKey:(NSDictionary**) byKey error:(NSError**) error;
 {
     if (!bundle)
         bundle = [NSBundle mainBundle];
@@ -26,7 +26,7 @@
     return [self definitionsWithContentsOfURL:url options:0 definitionsByKey:byKey error:error];
 }
 
-+ (NSData*) propertyListDataWithDefinitions:(NSSet*) definitions error:(NSError**) error;
++ (NSData*) propertyListDataWithDefinitions:(NSArray*) definitions error:(NSError**) error;
 {
     NSMutableDictionary* dictionary = [NSMutableDictionary dictionary];
     NSMutableArray* definitionPlists = [NSMutableArray arrayWithCapacity:definitions.count];
@@ -39,7 +39,7 @@
     return [NSPropertyListSerialization dataWithPropertyList:dictionary format:NSPropertyListBinaryFormat_v1_0 options:0 error:error];
 }
 
-+ (BOOL) writeDefinitions:(NSSet*) definitions toFileAtURL:(NSURL*) url error:(NSError**) error;
++ (BOOL) writeDefinitions:(NSArray*) definitions toFileAtURL:(NSURL*) url error:(NSError**) error;
 {
     NSData* data = [self propertyListDataWithDefinitions:definitions error:error];
     if (!data)
@@ -48,12 +48,12 @@
     return [data writeToURL:url options:NSDataWritingAtomic error:error];
 }
 
-+ (NSSet*) definitionsWithContentsOfURL:(NSURL*) url options:(ILBindingLoadingManyOptions) opts  definitionsByKey:(NSDictionary**) byKey error:(NSError**) error;
++ (NSArray*) definitionsWithContentsOfURL:(NSURL*) url options:(ILBindingLoadingManyOptions) opts  definitionsByKey:(NSDictionary**) byKey error:(NSError**) error;
 {
     return [self definitionsWithPropertyListData:[NSData dataWithContentsOfURL:url] options:opts definitionsByKey:byKey error:error];
 }
 
-+ (NSSet*) definitionsWithPropertyListData:(NSData*) data options:(ILBindingLoadingManyOptions) opts definitionsByKey:(NSDictionary**) byKey error:(NSError**) error;
++ (NSArray*) definitionsWithPropertyListData:(NSData*) data options:(ILBindingLoadingManyOptions) opts definitionsByKey:(NSDictionary**) byKey error:(NSError**) error;
 {
     id plist = [NSPropertyListSerialization propertyListWithData:data options:0 format:NULL error:error];
     if (!plist)
@@ -70,7 +70,7 @@
         return nil;
     }
     
-    NSMutableSet* result = [NSMutableSet set];
+    NSMutableArray* result = [NSMutableArray array];
     NSMutableDictionary* resultsByKey = nil;
     if (byKey)
         resultsByKey = [NSMutableDictionary dictionary];
