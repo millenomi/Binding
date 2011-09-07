@@ -16,6 +16,7 @@
 		15A5B19F141566F700CCC8BE /* ILBindingsTestViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 15A5B19E141566F700CCC8BE /* ILBindingsTestViewController.m */; };
 		15A5B1A2141566F700CCC8BE /* ILBindingsTestViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 15A5B1A0141566F700CCC8BE /* ILBindingsTestViewController.xib */; };
 		15A5B1BE1415674B00CCC8BE /* libBinding.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 15A5B1AE1415672200CCC8BE /* libBinding.a */; };
+		15D4D95D1417B4210077DF6E /* ILBindingsTestViewController.ilabs-bindings in Resources */ = {isa = PBXBuildFile; fileRef = 15D4D95C1417B4210077DF6E /* ILBindingsTestViewController.ilabs-bindings */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -40,6 +41,13 @@
 			remoteGlobalIDString = 157B5FE81412B2E500756425;
 			remoteInfo = Binding;
 		};
+		15D4D9541417B04A0077DF6E /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 15A5B1A81415672200CCC8BE /* Binding.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 155141BF14164EF3007CA046;
+			remoteInfo = "Binding-Mac";
+		};
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
@@ -57,6 +65,7 @@
 		15A5B19E141566F700CCC8BE /* ILBindingsTestViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ILBindingsTestViewController.m; sourceTree = "<group>"; };
 		15A5B1A1141566F700CCC8BE /* en */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = en; path = en.lproj/ILBindingsTestViewController.xib; sourceTree = "<group>"; };
 		15A5B1A81415672200CCC8BE /* Binding.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = Binding.xcodeproj; path = ../../Binding.xcodeproj; sourceTree = "<group>"; };
+		15D4D95C1417B4210077DF6E /* ILBindingsTestViewController.ilabs-bindings */ = {isa = PBXFileReference; lastKnownFileType = file.bplist; path = "ILBindingsTestViewController.ilabs-bindings"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -110,6 +119,7 @@
 				15A5B19D141566F700CCC8BE /* ILBindingsTestViewController.h */,
 				15A5B19E141566F700CCC8BE /* ILBindingsTestViewController.m */,
 				15A5B1A0141566F700CCC8BE /* ILBindingsTestViewController.xib */,
+				15D4D95C1417B4210077DF6E /* ILBindingsTestViewController.ilabs-bindings */,
 				15A5B192141566F700CCC8BE /* Supporting Files */,
 			);
 			path = ColorPicker;
@@ -131,6 +141,7 @@
 			children = (
 				15A5B1AE1415672200CCC8BE /* libBinding.a */,
 				15A5B1B01415672200CCC8BE /* BindingTests.octest */,
+				15D4D9551417B04A0077DF6E /* libBinding-Mac.a */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -202,6 +213,13 @@
 			remoteRef = 15A5B1AF1415672200CCC8BE /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
+		15D4D9551417B04A0077DF6E /* libBinding-Mac.a */ = {
+			isa = PBXReferenceProxy;
+			fileType = archive.ar;
+			path = "libBinding-Mac.a";
+			remoteRef = 15D4D9541417B04A0077DF6E /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
 /* End PBXReferenceProxy section */
 
 /* Begin PBXResourcesBuildPhase section */
@@ -211,6 +229,7 @@
 			files = (
 				15A5B196141566F700CCC8BE /* InfoPlist.strings in Resources */,
 				15A5B1A2141566F700CCC8BE /* ILBindingsTestViewController.xib in Resources */,
+				15D4D95D1417B4210077DF6E /* ILBindingsTestViewController.ilabs-bindings in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

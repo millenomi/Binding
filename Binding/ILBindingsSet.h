@@ -13,6 +13,7 @@
 @interface ILBindingsSet : NSObject
 
 + bindingsSetNamed:(NSString*) name owner:(id) owner;
+- (ILBinding*) bindingForKey:(NSString*) identifier;
 - (void) unbind;
 
 

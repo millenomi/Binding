@@ -32,7 +32,9 @@
 
     UIColor* color = value;
     CGFloat red, green, blue;
-    if (![color getRed:&red green:&green blue:&blue alpha:NULL])
+    
+    // <#TODO#> Report bug: iOS 5 headers don't mark this method with *_AVAILABLE(*, 5_0).
+    if (![color respondsToSelector:@selector(getRed:green:blue:alpha:)] || ![color getRed:&red green:&green blue:&blue alpha:NULL])
         return @"Unknown";
     
     CGFloat average = (red + green + blue) / 3.0;
@@ -58,69 +60,14 @@
 {
     [super viewDidLoad];
     
-    if (!bindings)
-        bindings = [NSMutableSet new];
-    
-    [bindings addObject:
-     
-     [ILBinding bindingWithKeyPath:@"red"
-                    ofSourceObject:self
-                    boundToKeyPath:@"value"
-                 ofTargetUIControl:self.redSlider
-                           options:[ILBindingOptions optionsWithDefaultValues]]
-     
-     ];
-    
-    [bindings addObject:
-     
-     [ILBinding bindingWithKeyPath:@"green"
-                    ofSourceObject:self
-                    boundToKeyPath:@"value"
-                 ofTargetUIControl:self.greenSlider
-                           options:[ILBindingOptions optionsWithDefaultValues]]
-     
-     ];
-    
-    [bindings addObject:
-     
-     [ILBinding bindingWithKeyPath:@"blue"
-                    ofSourceObject:self
-                    boundToKeyPath:@"value"
-                 ofTargetUIControl:self.blueSlider
-                           options:[ILBindingOptions optionsWithDefaultValues]]
-     
-     ];
-    
-    
-    [bindings addObject:
-     
-     [ILBinding bindingWithKeyPath:@"selectedColor"
-                    ofSourceObject:self
-                    boundToKeyPath:@"backgroundColor"
-                 ofTargetObject:self.colorDisplayView
-                           options:[ILBindingOptions optionsWithDefaultValues]]
-     
-     ];
-    
-    
-    ILBindingOptions* opts = [ILBindingOptions optionsWithDefaultValues];
-    opts.valueTransformer = [[ILBindingsTestBrightnessStringTransformer new] autorelease];
-    
-    [bindings addObject:
-     
-     [[ILBinding bindingWithKeyPath:@"selectedColor"
-                    ofSourceObject:self
-                    boundToKeyPath:@"title"
-                    ofTargetObject:self
-                           options:opts] setLogging]
-     ];
+    bindings = [[ILBindingsSet bindingsSetNamed:@"ILBindingsTestViewController" owner:self] retain];
     
     self.navigationItem.rightBarButtonItem = [[[UIBarButtonItem alloc] initWithTitle:@"Unbind" style:UIBarButtonItemStyleBordered target:self action:@selector(testByUnbinding)] autorelease];
 }
 
 - (void)viewDidUnload {
-    [bindings makeObjectsPerformSelector:@selector(unbind)];
-    [bindings removeAllObjects];
+    [bindings unbind];
+    [bindings release]; bindings = nil;
     
     [self setRedSlider:nil];
     [self setGreenSlider:nil];
@@ -131,8 +78,8 @@
 
 - (void) testByUnbinding;
 {
-    [bindings makeObjectsPerformSelector:@selector(unbind)];
-    [bindings removeAllObjects];
+    [bindings unbind];
+    [bindings release]; bindings = nil;
 }
 
 // --------------------
@@ -150,7 +97,7 @@
 }
 
 - (void)dealloc {
-    [bindings makeObjectsPerformSelector:@selector(unbind)];
+    [bindings unbind];
     [bindings release];
     
     [redSlider release];

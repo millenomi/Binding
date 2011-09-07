@@ -12,7 +12,10 @@
 
 int main(int argc, char *argv[])
 {
-    @autoreleasepool {
-        return UIApplicationMain(argc, argv, nil, NSStringFromClass([ILBindingsTestAppDelegate class]));
-    }
+    NSAutoreleasePool* pool = [NSAutoreleasePool new];
+    
+    int i = UIApplicationMain(argc, argv, nil, NSStringFromClass([ILBindingsTestAppDelegate class]));
+    
+    [pool release];
+    return i;
 }

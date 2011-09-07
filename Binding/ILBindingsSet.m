@@ -39,16 +39,22 @@
     self = [super init];
     if (self) {
         
-        NSDictionary* byKey;
-        self.allBindings = [ILBindingDefinition definitionsInResourceNamed:resource withExtension:extension bundle:bundle definitionsByKey:&byKey error:error];
+        NSSet* allDefinitions = [ILBindingDefinition definitionsInResourceNamed:resource withExtension:extension bundle:bundle definitionsByKey:NULL error:error];
         
-        if (!self.allBindings) {
-            [self release];
-            return nil;
+        NSMutableSet* bindings = [NSMutableSet setWithCapacity:allDefinitions.count];
+        NSMutableDictionary* bindingsByKey = [NSMutableDictionary dictionaryWithCapacity:allDefinitions.count];
+        
+        for (ILBindingDefinition* def in allDefinitions) {
+
+            ILBinding* binding = [def bindingWithSourceObject:source targetObject:target options:/* <#TODO#> */ [ILBindingOptions optionsWithDefaultValues]];
+            [bindings addObject:binding];
+            
+            if (def.key)
+                [bindingsByKey setObject:binding forKey:def.key];
         }
         
-        self.allBindingsByKey = byKey;
-        
+        self.allBindings = bindings;
+        self.allBindingsByKey = bindingsByKey;
     }
     
     return self;
@@ -57,15 +63,20 @@
 - (void)dealloc;
 {
     [self unbind];
-    
-    [allBindings release];
-    [allBindingsByKey release];
     [super dealloc];
 }
 
 - (void)unbind;
 {
     [self.allBindings makeObjectsPerformSelector:@selector(unbind)];
+    
+    self.allBindings = nil;
+    self.allBindingsByKey = nil;
+}
+
+- (ILBinding*) bindingForKey:(NSString*) identifier;
+{
+    return [self.allBindingsByKey objectForKey:identifier];
 }
 
 @end

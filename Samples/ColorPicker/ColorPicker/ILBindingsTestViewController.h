@@ -7,9 +7,10 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "ILBindingsSet.h"
 
 @interface ILBindingsTestViewController : UIViewController {
-    NSMutableSet* bindings;
+    ILBindingsSet* bindings;
 }
 
 @property (retain, nonatomic) IBOutlet UIView *colorDisplayView;
