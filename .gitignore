@@ -10,3 +10,6 @@ build
 # Xcode 4 stuff
 *.xcworkspace
 xcuserdata
+
+# Documentation
+Docs
