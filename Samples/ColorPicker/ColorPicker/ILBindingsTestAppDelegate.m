@@ -3,7 +3,7 @@
 //  ColorPicker
 //
 //  Created by ∞ on 05/09/11.
-//  Copyright (c) 2011 __MyCompanyName__. All rights reserved.
+//  Copyright (c) 2011 Emanuele Vulcano (Infinite Labs). All rights reserved.
 //
 
 #import "ILBindingsTestAppDelegate.h"
