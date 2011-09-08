@@ -13,11 +13,12 @@
 #import <UIKit/UIKit.h>
 #import "ILBinding.h"
 
-@interface ILBindableTableDataSource : NSObject <UITableViewDataSource>
+@interface ILObservingTableDataSource : NSObject <UITableViewDataSource>
 
 - (id) initForTableView:(UITableView*) tv cellCreationBlock:(UITableViewCell*(^)(id object)) block;
 
-@property(copy, nonatomic) NSArray* contents;
+- (void) setObservedKeyPath:(NSString*) kp ofSourceObject:(id) object;
+- (void) endObservingSourceObject;
 
 @property(nonatomic) UITableViewRowAnimation reloadAnimation, insertAnimation, deleteAnimation;
 

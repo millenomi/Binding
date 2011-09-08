@@ -35,8 +35,8 @@
 		155E879214141B4C003E951B /* ILBindingOptions.h in Headers */ = {isa = PBXBuildFile; fileRef = 155E879014141B4C003E951B /* ILBindingOptions.h */; };
 		155E879314141B4C003E951B /* ILBindingOptions.m in Sources */ = {isa = PBXBuildFile; fileRef = 155E879114141B4C003E951B /* ILBindingOptions.m */; };
 		157B5FED1412B2E500756425 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 157B5FEC1412B2E500756425 /* Foundation.framework */; };
-		15D4D9601417C2650077DF6E /* ILBindableTableDataSource.h in Headers */ = {isa = PBXBuildFile; fileRef = 15D4D95E1417C2650077DF6E /* ILBindableTableDataSource.h */; };
-		15D4D9611417C2650077DF6E /* ILBindableTableDataSource.m in Sources */ = {isa = PBXBuildFile; fileRef = 15D4D95F1417C2650077DF6E /* ILBindableTableDataSource.m */; };
+		15D4D9601417C2650077DF6E /* ILObservingTableDataSource.h in Headers */ = {isa = PBXBuildFile; fileRef = 15D4D95E1417C2650077DF6E /* ILObservingTableDataSource.h */; };
+		15D4D9611417C2650077DF6E /* ILObservingTableDataSource.m in Sources */ = {isa = PBXBuildFile; fileRef = 15D4D95F1417C2650077DF6E /* ILObservingTableDataSource.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -62,8 +62,8 @@
 		157B5FE91412B2E500756425 /* libBinding.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libBinding.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		157B5FEC1412B2E500756425 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		157B5FF01412B2E500756425 /* Binding-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Binding-Prefix.pch"; sourceTree = "<group>"; };
-		15D4D95E1417C2650077DF6E /* ILBindableTableDataSource.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ILBindableTableDataSource.h; sourceTree = "<group>"; };
-		15D4D95F1417C2650077DF6E /* ILBindableTableDataSource.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ILBindableTableDataSource.m; sourceTree = "<group>"; };
+		15D4D95E1417C2650077DF6E /* ILObservingTableDataSource.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ILObservingTableDataSource.h; sourceTree = "<group>"; };
+		15D4D95F1417C2650077DF6E /* ILObservingTableDataSource.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ILObservingTableDataSource.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -161,8 +161,8 @@
 				1551416B141619D5007CA046 /* ILBindingDefinition+ILBindingsLoadingMany.m */,
 				1551416E14161C68007CA046 /* ILBindingsSet.h */,
 				1551416F14161C68007CA046 /* ILBindingsSet.m */,
-				15D4D95E1417C2650077DF6E /* ILBindableTableDataSource.h */,
-				15D4D95F1417C2650077DF6E /* ILBindableTableDataSource.m */,
+				15D4D95E1417C2650077DF6E /* ILObservingTableDataSource.h */,
+				15D4D95F1417C2650077DF6E /* ILObservingTableDataSource.m */,
 			);
 			path = Binding;
 			sourceTree = "<group>";
@@ -199,7 +199,7 @@
 				1551416714160238007CA046 /* ILBindingDefinition.h in Headers */,
 				1551416C141619D5007CA046 /* ILBindingDefinition+ILBindingsLoadingMany.h in Headers */,
 				1551417014161C68007CA046 /* ILBindingsSet.h in Headers */,
-				15D4D9601417C2650077DF6E /* ILBindableTableDataSource.h in Headers */,
+				15D4D9601417C2650077DF6E /* ILObservingTableDataSource.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -342,7 +342,7 @@
 				1551416814160238007CA046 /* ILBindingDefinition.m in Sources */,
 				1551416D141619D5007CA046 /* ILBindingDefinition+ILBindingsLoadingMany.m in Sources */,
 				1551417114161C68007CA046 /* ILBindingsSet.m in Sources */,
-				15D4D9611417C2650077DF6E /* ILBindableTableDataSource.m in Sources */,
+				15D4D9611417C2650077DF6E /* ILObservingTableDataSource.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
