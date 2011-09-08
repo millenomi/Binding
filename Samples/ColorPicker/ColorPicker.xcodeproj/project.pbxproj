@@ -17,6 +17,7 @@
 		15A5B1A2141566F700CCC8BE /* ILBindingsTestViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 15A5B1A0141566F700CCC8BE /* ILBindingsTestViewController.xib */; };
 		15A5B1BE1415674B00CCC8BE /* libBinding.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 15A5B1AE1415672200CCC8BE /* libBinding.a */; };
 		15D4D95D1417B4210077DF6E /* ILBindingsTestViewController.ilabs-bindings in Resources */ = {isa = PBXBuildFile; fileRef = 15D4D95C1417B4210077DF6E /* ILBindingsTestViewController.ilabs-bindings */; };
+		15DE17EF141953F800888F3E /* TopShadow.png in Resources */ = {isa = PBXBuildFile; fileRef = 15DE17EE141953F800888F3E /* TopShadow.png */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -66,6 +67,7 @@
 		15A5B1A1141566F700CCC8BE /* en */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = en; path = en.lproj/ILBindingsTestViewController.xib; sourceTree = "<group>"; };
 		15A5B1A81415672200CCC8BE /* Binding.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = Binding.xcodeproj; path = ../../Binding.xcodeproj; sourceTree = "<group>"; };
 		15D4D95C1417B4210077DF6E /* ILBindingsTestViewController.ilabs-bindings */ = {isa = PBXFileReference; lastKnownFileType = file.bplist; path = "ILBindingsTestViewController.ilabs-bindings"; sourceTree = "<group>"; };
+		15DE17EE141953F800888F3E /* TopShadow.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = TopShadow.png; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -120,6 +122,7 @@
 				15A5B19E141566F700CCC8BE /* ILBindingsTestViewController.m */,
 				15A5B1A0141566F700CCC8BE /* ILBindingsTestViewController.xib */,
 				15D4D95C1417B4210077DF6E /* ILBindingsTestViewController.ilabs-bindings */,
+				15DE17EE141953F800888F3E /* TopShadow.png */,
 				15A5B192141566F700CCC8BE /* Supporting Files */,
 			);
 			path = ColorPicker;
@@ -230,6 +233,7 @@
 				15A5B196141566F700CCC8BE /* InfoPlist.strings in Resources */,
 				15A5B1A2141566F700CCC8BE /* ILBindingsTestViewController.xib in Resources */,
 				15D4D95D1417B4210077DF6E /* ILBindingsTestViewController.ilabs-bindings in Resources */,
+				15DE17EF141953F800888F3E /* TopShadow.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

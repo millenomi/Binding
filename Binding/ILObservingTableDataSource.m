@@ -54,7 +54,6 @@
     
     self.cellCreationBlock = nil;
     
-    [mutableContents release];
     [super dealloc];
 }
 
@@ -99,7 +98,7 @@
     
     switch (kind) {
         case NSKeyValueChangeSetting:
-            [self.tableView reloadSections:[NSIndexSet indexSetWithIndex:0] withRowAnimation:self.reloadAnimation]
+            [self.tableView reloadSections:[NSIndexSet indexSetWithIndex:0] withRowAnimation:self.reloadAnimation];
             break;
             
         case NSKeyValueChangeReplacement: {
@@ -136,6 +135,11 @@
     }
     
     return array;
+}
+
+- (id) objectAtTableViewIndexPath:(NSIndexPath*) path;
+{
+    return [[self.observedObject mutableArrayValueForKey:self.observedKeyPath] objectAtIndex:path.row];
 }
 
 @end

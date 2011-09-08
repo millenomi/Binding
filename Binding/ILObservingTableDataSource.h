@@ -22,6 +22,8 @@
 
 @property(nonatomic) UITableViewRowAnimation reloadAnimation, insertAnimation, deleteAnimation;
 
+- (id) objectAtTableViewIndexPath:(NSIndexPath*) path;
+
 @end
 
 #endif

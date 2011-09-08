@@ -20,8 +20,12 @@
 @property (retain, nonatomic) IBOutlet UISlider *blueSlider;
 
 // Model
-@property(readonly, nonatomic) UIColor* selectedColor;
-
+@property(copy, nonatomic) UIColor* selectedColor;
 @property(nonatomic) CGFloat red, green, blue;
+
+@property(retain, nonatomic) NSMutableArray* favoriteColors;
+
+// Favorites
+@property (retain, nonatomic) IBOutlet UITableView *favoritesTableView;
 
 @end
