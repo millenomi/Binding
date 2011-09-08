@@ -15,6 +15,7 @@ typedef enum {
 
 #define kILBindingDefinitionFileExtension @"ilabs-bindings"
 
+/** These methods implement loading and saving a set of related definitions (typically from or to a Bindings Editor document). */
 @interface ILBindingDefinition (ILBindingsLoadingMany)
 
 + (NSArray*) definitionsInResourceNamed:(NSString*) resource withExtension:(NSString*) extension bundle:(NSBundle*) bundle definitionsByKey:(NSDictionary**) byKey error:(NSError**) error;
