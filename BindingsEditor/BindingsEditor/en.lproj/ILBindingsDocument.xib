@@ -63,7 +63,7 @@
 											<string key="NSFrameSize">{594, 373}</string>
 											<reference key="NSSuperview" ref="706958753"/>
 											<reference key="NSWindow"/>
-											<reference key="NSNextKeyView" ref="645303601"/>
+											<reference key="NSNextKeyView" ref="748047496"/>
 											<string key="NSReuseIdentifierKey">_NS:3367</string>
 											<string key="NSMinGridSize">{0, 0}</string>
 											<string key="NSMaxGridSize">{0, 0}</string>
@@ -123,7 +123,7 @@
 									<string key="NSFrame">{{-100, -100}, {233, 15}}</string>
 									<reference key="NSSuperview" ref="162186308"/>
 									<reference key="NSWindow"/>
-									<reference key="NSNextKeyView" ref="748047496"/>
+									<reference key="NSNextKeyView" ref="706958753"/>
 									<string key="NSReuseIdentifierKey">_NS:3374</string>
 									<int key="NSsFlags">1</int>
 									<reference key="NSTarget" ref="162186308"/>
@@ -134,7 +134,7 @@
 							<string key="NSFrame">{{-1, 38}, {596, 375}}</string>
 							<reference key="NSSuperview" ref="568628114"/>
 							<reference key="NSWindow"/>
-							<reference key="NSNextKeyView" ref="706958753"/>
+							<reference key="NSNextKeyView" ref="645303601"/>
 							<string key="NSReuseIdentifierKey">_NS:3363</string>
 							<int key="NSsFlags">199186</int>
 							<reference key="NSVScroller" ref="645303601"/>
@@ -147,6 +147,7 @@
 							<string key="NSFrame">{{282, 2}, {32, 33}}</string>
 							<reference key="NSSuperview" ref="568628114"/>
 							<reference key="NSWindow"/>
+							<reference key="NSNextKeyView"/>
 							<string key="NSReuseIdentifierKey">_NS:2466</string>
 							<bool key="NSEnabled">YES</bool>
 							<object class="NSButtonCell" key="NSCell" id="53070097">
@@ -181,6 +182,7 @@
 				<string key="NSScreenRect">{{0, 0}, {1440, 878}}</string>
 				<string key="NSMinSize">{594, 108}</string>
 				<string key="NSMaxSize">{10000000000000, 10000000000000}</string>
+				<int key="NSWindowCollectionBehavior">128</int>
 				<bool key="NSWindowIsRestorable">YES</bool>
 			</object>
 			<object class="NSArrayController" id="1018554669">
