@@ -9,10 +9,11 @@
 #import "ILBindingsTestViewController.h"
 
 #import "ILBinding.h"
-#import "ILObservingTableDataSource.h"
+#import "ILObservingTableSection.h"
 
 @interface ILBindingsTestViewController () <UITableViewDelegate>
-@property(retain, nonatomic) ILObservingTableDataSource* dataSource;
+@property(retain, nonatomic) ILTableDataSource* dataSource;
+@property(retain, nonatomic) ILObservingTableSection* favoritesSection;
 @end
 
 @interface ILBindingsTestBrightnessStringTransformer : NSValueTransformer
@@ -39,7 +40,7 @@
     CGFloat red, green, blue;
     
     // <#TODO#> Report bug: iOS 5 headers don't mark this method with *_AVAILABLE(*, 5_0).
-    if (![color respondsToSelector:@selector(getRed:green:blue:alpha:)] || ![color getRed:&red green:&green blue:&blue alpha:NULL])
+    if (![color getRed:&red green:&green blue:&blue alpha:NULL])
         return @"Unknown";
     
     CGFloat average = (red + green + blue) / 3.0;
@@ -62,7 +63,7 @@
 @synthesize greenSlider;
 @synthesize blueSlider;
 
-@synthesize dataSource, favoriteColors;
+@synthesize dataSource, favoriteColors, favoritesSection;
 
 - (void)viewDidLoad;
 {
@@ -75,8 +76,7 @@
     bindings = [[ILBindingsSet bindingsSetNamed:@"ILBindingsTestViewController" owner:self] retain];
     
     // Set up the table view.
-    UITableView* tv = self.favoritesTableView;
-    self.dataSource = [[ILObservingTableDataSource alloc] initForTableView:tv cellCreationBlock:^UITableViewCell *(id color) {
+    self.favoritesSection = [[[ILObservingTableSection alloc] initWithCellCreationBlock:^UITableViewCell*(id color, UITableView* tv) {
         
         static NSString* const kILBindingsTestFavoriteColorCell = @"kILBindingsTestFavoriteColorCell";
         UITableViewCell* cell = [tv dequeueReusableCellWithIdentifier:kILBindingsTestFavoriteColorCell];
@@ -98,10 +98,14 @@
         
         return cell;
         
-    }];
-    [self.dataSource setObservedKeyPath:@"favoriteColors" ofSourceObject:self];
+    }] autorelease];
+    [self.favoritesSection setObservedKeyPath:@"favoriteColors" ofSourceObject:self];
     
-    tv.delegate = self;
+    self.dataSource = [[[ILTableDataSource alloc] initWithTableView:self.favoritesTableView] autorelease];
+    [self.dataSource.sections addObject:self.favoritesSection];
+    
+    self.favoritesTableView.delegate = self;
+    self.favoritesTableView.dataSource = self.dataSource;
     
     self.navigationItem.leftBarButtonItem = [[[UIBarButtonItem alloc] initWithTitle:@"Unbind" style:UIBarButtonItemStyleBordered target:self action:@selector(testByUnbinding)] autorelease];
     self.navigationItem.rightBarButtonItem = [[[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAdd target:self action:@selector(addFavorite)] autorelease];
@@ -111,9 +115,12 @@
     [bindings unbind];
     [bindings release]; bindings = nil;
     
-    [self.dataSource endObservingSourceObject];
+    [self.favoritesSection endObservingSourceObject];
+    self.favoritesSection = nil;
+    
     self.dataSource = nil;
     
+    self.favoritesTableView.dataSource = nil;
     self.favoritesTableView.delegate = nil;
     
     [self setRedSlider:nil];
@@ -129,8 +136,8 @@
     [bindings unbind];
     [bindings release]; bindings = nil;
     
-    [self.dataSource endObservingSourceObject];
-    self.dataSource = nil;
+    [self.favoritesSection endObservingSourceObject];
+    self.favoritesSection = nil;
 }
 
 // --------------------
@@ -143,7 +150,7 @@
 
 - (void)tableView:(UITableView *)tv didSelectRowAtIndexPath:(NSIndexPath *)indexPath;
 {
-    UIColor* color = [self.dataSource objectAtTableViewIndexPath:indexPath];
+    UIColor* color = [self.favoriteColors objectAtIndex:indexPath.row];
     self.selectedColor = color;
     
     [tv deselectRowAtIndexPath:indexPath animated:YES];
@@ -178,8 +185,13 @@
 - (void)dealloc {
     [bindings unbind];
     [bindings release];
+
+    favoritesTableView.delegate = nil;
+    favoritesTableView.dataSource = nil;
+
+    [favoritesSection endObservingSourceObject];
+    [favoritesSection release];
     
-    [dataSource endObservingSourceObject];
     [dataSource release];
     
     [favoriteColors release];
