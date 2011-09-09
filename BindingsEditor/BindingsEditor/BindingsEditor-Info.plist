@@ -12,7 +12,7 @@
 				<string>ilabs-bindings</string>
 			</array>
 			<key>CFBundleTypeIconFile</key>
-			<string></string>
+			<string>BindingsDocument</string>
 			<key>CFBundleTypeName</key>
 			<string>ILBindings Definition</string>
 			<key>CFBundleTypeOSTypes</key>
@@ -32,7 +32,7 @@
 	<key>CFBundleExecutable</key>
 	<string>${EXECUTABLE_NAME}</string>
 	<key>CFBundleIconFile</key>
-	<string></string>
+	<string>BindingsEditor</string>
 	<key>CFBundleIdentifier</key>
 	<string>net.infinite-labs.${PRODUCT_NAME:rfc1034identifier}</string>
 	<key>CFBundleInfoDictionaryVersion</key>
@@ -66,6 +66,8 @@
 			</array>
 			<key>UTTypeDescription</key>
 			<string>ILBindings Definition</string>
+			<key>UTTypeIconFile</key>
+			<string>BindingsDocument</string>
 			<key>UTTypeIdentifier</key>
 			<string>net.infinite-labs.ILBindings.Definition</string>
 			<key>UTTypeTagSpecification</key>
