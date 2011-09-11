@@ -325,6 +325,9 @@ static NSString* const kILBindingIsDispatchingChangeOnCurrentThreadKey = @"ILBin
 
 - (id)initWithKeyPath:(NSString *)key ofSourceObject:(id)object boundToKeyPath:(NSString *)otherKey ofTargetUIControl:(UIControl*)otherObject options:(ILBindingOptions *)opts;
 {
+    NSAssert((opts.concurrencyModel == kILBindingConcurrencyAllowedThread && opts.allowedThread == [NSThread mainThread]) ||
+             (opts.concurrencyModel == kILBindingConcurrencyDispatchOnQueue && opts.dispatchQueue == dispatch_get_main_queue()) , @"Binding to UIControl requires dispatch to occur on the main thread.");
+    
     if (opts.direction == kILBindingDirectionSourceToTargetOnly) {
         return [self initWithKeyPath:key ofSourceObject:object boundToKeyPath:otherKey ofTargetObject:otherObject options:opts];
     }
