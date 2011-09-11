@@ -10,28 +10,24 @@
 
 @implementation ILBindingOptions
 
-@synthesize concurrencyModel, allowedThread;
+@synthesize concurrencyModel, allowedThread, dispatchQueue;
 
 @synthesize direction;
 
 @synthesize valueTransformer;
+
+- init { return [super init]; }
 
 + optionsWithDefaultValues;
 {
     return [[self new] autorelease];
 }
 
-- (id)init;
-{
-    self = [super init];
-    if (self) {
-        self.allowedThread = [NSThread mainThread];
-    }
-    return self;
-}
-
 - (void)dealloc;
 {
+    if (dispatchQueue)
+        dispatch_release(dispatchQueue);
+    
     [allowedThread release];
     [valueTransformer release];
     [super dealloc];
@@ -44,13 +40,25 @@
         
         switch (concurrencyModel) {
             case kILBindingConcurrencyAllowedThread:
-                
-                if (!self.allowedThread)
-                    self.allowedThread = [NSThread mainThread];
-                
+                                
+                self.dispatchQueue = NULL;
                 break;
+                
+            case kILBindingConcurrencyDispatchOnQueue:
+                
+                self.allowedThread = nil;
+                break;
+                
         }
     }
+}
+
+- (NSThread *)allowedThread;
+{
+    if (!allowedThread)
+        return [NSThread mainThread];
+    
+    return allowedThread;
 }
 
 - (void)setAllowedThread:(NSThread *) a;
@@ -61,6 +69,28 @@
         
         if (allowedThread)
             self.concurrencyModel = kILBindingConcurrencyAllowedThread;
+    }
+}
+
+- (dispatch_queue_t)dispatchQueue;
+{
+    if (!dispatchQueue)
+        return dispatch_get_main_queue();
+    
+    return dispatchQueue;
+}
+
+- (void)setDispatchQueue:(dispatch_queue_t) dq;
+{
+    if (dispatchQueue != dq) {
+        dispatch_release(dispatchQueue);
+        if (dq)
+            dispatch_retain(dq);
+        
+        dispatchQueue = dq;
+        
+        if (dq)
+            self.concurrencyModel = kILBindingConcurrencyDispatchOnQueue;
     }
 }
 

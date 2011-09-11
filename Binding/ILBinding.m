@@ -133,155 +133,164 @@ static NSString* const kILBindingIsDispatchingChangeOnCurrentThreadKey = @"ILBin
         
     }
     
-    if (self.synchronizing)
-        return;
-    
-    if (object == self.targetObject && [keyPath isEqualToString:self.targetKeyPath] && opts.direction == kILBindingDirectionSourceToTargetOnly)
-        return;
-    
-    self.synchronizing = YES;
-    
-    id otherObject = (object == self.sourceObject && [keyPath isEqualToString:self.sourceKeyPath]? self.targetObject : self.sourceObject);
-    NSString* otherKey = (object == self.sourceObject && [keyPath isEqualToString:self.sourceKeyPath]? self.targetKeyPath : self.sourceKeyPath);
-    
-    SEL valueTransformerSelector = (object == self.sourceObject? @selector(transformedValue:) : @selector(reverseTransformedValue:));
-    
-    NSKeyValueChange kind = [[change objectForKey:NSKeyValueChangeKindKey] unsignedIntegerValue];
-    
-    if (kind == NSKeyValueChangeSetting) {
+    void (^performSync)() = ^{
         
-        id value = [change objectForKey:NSKeyValueChangeNewKey];
-
-        if (self.logging) {
-            NSLog(@"%@ - Will change value for %@ -> %@ (from %@ -> %@) to\n\t%@", self, otherObject, otherKey, object, keyPath, value);
-        }
+        if (self.synchronizing)
+            return;
         
-        if (opts.valueTransformer) {
-            value = [opts.valueTransformer performSelector:valueTransformerSelector withObject:value];
+        if (object == self.targetObject && [keyPath isEqualToString:self.targetKeyPath] && opts.direction == kILBindingDirectionSourceToTargetOnly)
+            return;
+        
+        self.synchronizing = YES;
+        
+        id otherObject = (object == self.sourceObject && [keyPath isEqualToString:self.sourceKeyPath]? self.targetObject : self.sourceObject);
+        NSString* otherKey = (object == self.sourceObject && [keyPath isEqualToString:self.sourceKeyPath]? self.targetKeyPath : self.sourceKeyPath);
+        
+        SEL valueTransformerSelector = (object == self.sourceObject? @selector(transformedValue:) : @selector(reverseTransformedValue:));
+        
+        NSKeyValueChange kind = [[change objectForKey:NSKeyValueChangeKindKey] unsignedIntegerValue];
+        
+        if (kind == NSKeyValueChangeSetting) {
             
-            if (self.logging)
-                NSLog(@"Value transformed to: %@", value);
-        }
-        
-        [otherObject setValue:value forKeyPath:otherKey];
-        
-    } else {
-        
-        BOOL isRelationshipOrdered = [[change objectForKey:NSKeyValueChangeNewKey] isKindOfClass:[NSArray class]] || [[change objectForKey:NSKeyValueChangeOldKey] isKindOfClass:[NSArray class]];
-        
-        if (isRelationshipOrdered) {
+            id value = [change objectForKey:NSKeyValueChangeNewKey];
             
-            switch (kind) {
-                case NSKeyValueChangeInsertion: {
-                    
-                    NSIndexSet* indexes = [change objectForKey:NSKeyValueChangeIndexesKey];
-                    NSArray* objects = [change objectForKey:NSKeyValueChangeNewKey];
-                    
-                    if (self.logging) {
-                        NSLog(@"%@ - Will change value for %@ -> %@ (from %@ -> %@)\n\tby inserting objects: %@\n\tat indexes: %@", self, otherObject, otherKey, object, keyPath, objects, indexes);
-                    }
-                    
-                    objects = [self arrayByTransformingArray:objects usingValueTransformerSelector:valueTransformerSelector];
-                    
-                    [[otherObject mutableArrayValueForKey:otherKey] insertObjects:objects atIndexes:indexes];
-                    
-                    break;
-                }
-                    
-                case NSKeyValueChangeRemoval: {
-                    
-                    NSIndexSet* indexes = [change objectForKey:NSKeyValueChangeIndexesKey];
-
-                    if (self.logging) {
-                        NSLog(@"%@ - Will change value for %@ -> %@ (from %@ -> %@)\n\tby removing objects: %@\n\tfrom indexes: %@", self, otherObject, otherKey, object, keyPath, [change objectForKey:NSKeyValueChangeOldKey], indexes);
-                    }
-                    
-                    [[otherObject mutableArrayValueForKey:otherKey] removeObjectsAtIndexes:indexes];
-                    
-                    break;
-                }
-                    
-                case NSKeyValueChangeReplacement: {
-                    
-                    NSIndexSet* indexes = [change objectForKey:NSKeyValueChangeIndexesKey];
-                    NSArray* objects = [change objectForKey:NSKeyValueChangeNewKey];
-                    
-                    objects = [self arrayByTransformingArray:objects usingValueTransformerSelector:valueTransformerSelector];
-                    
-                    if (self.logging) {
-                        NSLog(@"%@ - Will change value for %@ -> %@ (from %@ -> %@)\n\tby replacing objects: %@\n\tat indexes: %@\n\twith objects: %@", self, otherObject, otherKey, object, keyPath, [change objectForKey:NSKeyValueChangeOldKey], indexes, objects);
-                    }
-
-                    [[otherObject mutableArrayValueForKey:otherKey] replaceObjectsAtIndexes:indexes withObjects:objects];
-                    
-                    break;
-                }
-                    
-                default:
-                    break;
+            if (self.logging) {
+                NSLog(@"%@ - Will change value for %@ -> %@ (from %@ -> %@) to\n\t%@", self, otherObject, otherKey, object, keyPath, value);
             }
             
-        } else /* relationship is unordered */ {
+            if (opts.valueTransformer) {
+                value = [opts.valueTransformer performSelector:valueTransformerSelector withObject:value];
+                
+                if (self.logging)
+                    NSLog(@"Value transformed to: %@", value);
+            }
             
-            switch (kind) {
-                case NSKeyValueChangeInsertion: {
-                    
-                    NSSet* objects = [change objectForKey:NSKeyValueChangeNewKey];
-                    
-                    objects = [self setByTransformingSet:objects usingValueTransformerSelector:valueTransformerSelector];
-                    
-                    if (self.logging) {
-                        NSLog(@"%@ - Will change value for %@ -> %@ (from %@ -> %@)\n\tby set union with objects: %@", self, otherObject, otherKey, object, keyPath, objects);
+            [otherObject setValue:value forKeyPath:otherKey];
+            
+        } else {
+            
+            BOOL isRelationshipOrdered = [[change objectForKey:NSKeyValueChangeNewKey] isKindOfClass:[NSArray class]] || [[change objectForKey:NSKeyValueChangeOldKey] isKindOfClass:[NSArray class]];
+            
+            if (isRelationshipOrdered) {
+                
+                switch (kind) {
+                    case NSKeyValueChangeInsertion: {
+                        
+                        NSIndexSet* indexes = [change objectForKey:NSKeyValueChangeIndexesKey];
+                        NSArray* objects = [change objectForKey:NSKeyValueChangeNewKey];
+                        
+                        if (self.logging) {
+                            NSLog(@"%@ - Will change value for %@ -> %@ (from %@ -> %@)\n\tby inserting objects: %@\n\tat indexes: %@", self, otherObject, otherKey, object, keyPath, objects, indexes);
+                        }
+                        
+                        objects = [self arrayByTransformingArray:objects usingValueTransformerSelector:valueTransformerSelector];
+                        
+                        [[otherObject mutableArrayValueForKey:otherKey] insertObjects:objects atIndexes:indexes];
+                        
+                        break;
                     }
-                    
-                    [[otherObject mutableSetValueForKey:otherKey] unionSet:objects];
-                    
-                    break;
-                }
-                    
-                case NSKeyValueChangeRemoval: {
-                    
-                    NSSet* objects = [change objectForKey:NSKeyValueChangeOldKey];
-                    
-                    objects = [self setByTransformingSet:objects usingValueTransformerSelector:valueTransformerSelector];
-
-                    if (self.logging) {
-                        NSLog(@"%@ - Will change value for %@ -> %@ (from %@ -> %@)\n\tby set difference with objects: %@", self, otherObject, otherKey, object, keyPath, objects);
+                        
+                    case NSKeyValueChangeRemoval: {
+                        
+                        NSIndexSet* indexes = [change objectForKey:NSKeyValueChangeIndexesKey];
+                        
+                        if (self.logging) {
+                            NSLog(@"%@ - Will change value for %@ -> %@ (from %@ -> %@)\n\tby removing objects: %@\n\tfrom indexes: %@", self, otherObject, otherKey, object, keyPath, [change objectForKey:NSKeyValueChangeOldKey], indexes);
+                        }
+                        
+                        [[otherObject mutableArrayValueForKey:otherKey] removeObjectsAtIndexes:indexes];
+                        
+                        break;
                     }
-                    
-                    [[otherObject mutableSetValueForKey:otherKey] minusSet:objects];
-                    
-                    break;
-                }
-                    
-                case NSKeyValueChangeReplacement: {
-                    
-                    NSSet* addedObjects = [change objectForKey:NSKeyValueChangeNewKey];
-                    NSSet* removedObjects = [change objectForKey:NSKeyValueChangeOldKey];
-                    
-                    addedObjects = [self setByTransformingSet:addedObjects usingValueTransformerSelector:valueTransformerSelector];
-                    removedObjects = [self setByTransformingSet:removedObjects usingValueTransformerSelector:valueTransformerSelector];
-                    
-                    if (self.logging) {
-                        NSLog(@"%@ - Will change value for %@ -> %@ (from %@ -> %@)\n\tby replacing set of objects: %@\n\twith objects: %@", self, otherObject, otherKey, object, keyPath, addedObjects, removedObjects);
+                        
+                    case NSKeyValueChangeReplacement: {
+                        
+                        NSIndexSet* indexes = [change objectForKey:NSKeyValueChangeIndexesKey];
+                        NSArray* objects = [change objectForKey:NSKeyValueChangeNewKey];
+                        
+                        objects = [self arrayByTransformingArray:objects usingValueTransformerSelector:valueTransformerSelector];
+                        
+                        if (self.logging) {
+                            NSLog(@"%@ - Will change value for %@ -> %@ (from %@ -> %@)\n\tby replacing objects: %@\n\tat indexes: %@\n\twith objects: %@", self, otherObject, otherKey, object, keyPath, [change objectForKey:NSKeyValueChangeOldKey], indexes, objects);
+                        }
+                        
+                        [[otherObject mutableArrayValueForKey:otherKey] replaceObjectsAtIndexes:indexes withObjects:objects];
+                        
+                        break;
                     }
-                    
-                    NSMutableSet* mutableSet = [otherObject mutableSetValueForKey:otherKey];
-                    [mutableSet minusSet:removedObjects];
-                    [mutableSet unionSet:addedObjects];
-                    
-                    break;
+                        
+                    default:
+                        break;
                 }
-                    
-                default:
-                    break;
+                
+            } else /* relationship is unordered */ {
+                
+                switch (kind) {
+                    case NSKeyValueChangeInsertion: {
+                        
+                        NSSet* objects = [change objectForKey:NSKeyValueChangeNewKey];
+                        
+                        objects = [self setByTransformingSet:objects usingValueTransformerSelector:valueTransformerSelector];
+                        
+                        if (self.logging) {
+                            NSLog(@"%@ - Will change value for %@ -> %@ (from %@ -> %@)\n\tby set union with objects: %@", self, otherObject, otherKey, object, keyPath, objects);
+                        }
+                        
+                        [[otherObject mutableSetValueForKey:otherKey] unionSet:objects];
+                        
+                        break;
+                    }
+                        
+                    case NSKeyValueChangeRemoval: {
+                        
+                        NSSet* objects = [change objectForKey:NSKeyValueChangeOldKey];
+                        
+                        objects = [self setByTransformingSet:objects usingValueTransformerSelector:valueTransformerSelector];
+                        
+                        if (self.logging) {
+                            NSLog(@"%@ - Will change value for %@ -> %@ (from %@ -> %@)\n\tby set difference with objects: %@", self, otherObject, otherKey, object, keyPath, objects);
+                        }
+                        
+                        [[otherObject mutableSetValueForKey:otherKey] minusSet:objects];
+                        
+                        break;
+                    }
+                        
+                    case NSKeyValueChangeReplacement: {
+                        
+                        NSSet* addedObjects = [change objectForKey:NSKeyValueChangeNewKey];
+                        NSSet* removedObjects = [change objectForKey:NSKeyValueChangeOldKey];
+                        
+                        addedObjects = [self setByTransformingSet:addedObjects usingValueTransformerSelector:valueTransformerSelector];
+                        removedObjects = [self setByTransformingSet:removedObjects usingValueTransformerSelector:valueTransformerSelector];
+                        
+                        if (self.logging) {
+                            NSLog(@"%@ - Will change value for %@ -> %@ (from %@ -> %@)\n\tby replacing set of objects: %@\n\twith objects: %@", self, otherObject, otherKey, object, keyPath, addedObjects, removedObjects);
+                        }
+                        
+                        NSMutableSet* mutableSet = [otherObject mutableSetValueForKey:otherKey];
+                        [mutableSet minusSet:removedObjects];
+                        [mutableSet unionSet:addedObjects];
+                        
+                        break;
+                    }
+                        
+                    default:
+                        break;
+                }
+                
             }
             
         }
         
-    }
-    
-    self.synchronizing = NO;
+        self.synchronizing = NO;
+        
+    };
+
+    if (opts.concurrencyModel == kILBindingConcurrencyDispatchOnQueue)
+        dispatch_async(opts.dispatchQueue, performSync);
+    else
+        performSync();
 }
 
 - (void) synchronizeFromTargetToSource;
@@ -324,7 +333,7 @@ static NSString* const kILBindingIsDispatchingChangeOnCurrentThreadKey = @"ILBin
     actualOptions.direction = kILBindingDirectionSourceToTargetOnly;
     
     self = [self initWithKeyPath:key ofSourceObject:object boundToKeyPath:otherKey ofTargetObject:otherObject options:actualOptions];
-
+    
     if (self) {
         [otherObject addTarget:self action:@selector(synchronizeFromTargetToSource) forControlEvents:UIControlEventValueChanged];
         

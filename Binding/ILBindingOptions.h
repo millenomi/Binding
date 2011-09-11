@@ -7,6 +7,7 @@
 //
 
 #import <Foundation/Foundation.h>
+#import <dispatch/dispatch.h>
 
 // Explicit enum names for Doxygen.
 
@@ -20,6 +21,14 @@ typedef enum {
      This is the default concurrency model. The allowed thread can be set with the -[ILBindingOptions allowedThread] property; if not set, the main thread is the default.
      */
     kILBindingConcurrencyAllowedThread = 0,
+    
+    /** If this concurrency model is set, the binding will propagate changes only through blocks dispatched on the provided dispatch queue. Concurrently occurring changes will cause blocks to be dispatched on this queue with no particular guaranteed order.
+     
+     Blocks are dispatched asynchronously.
+     
+     The default dispatch queue is the main queue. Note that dispatching on the main queue is similar, but not identical, to using the allowed thread policy with the main thread. Using queues, changes will be propagated asynchronously, even though still on the main thread.
+     */
+    kILBindingConcurrencyDispatchOnQueue,
 } ILBindingConcurrencyModel;
 
 /**
@@ -57,6 +66,12 @@ typedef enum {
  
  If any other concurrency model is set, this property will be set to nil. */
 @property(nonatomic, retain) NSThread* allowedThread;
+
+/** If the concurrency model is set to kILBindingConcurrencyDispatchOnQueue, then this property indicates on which queue to dispatch blocks that perform synchronization work on the queue's behalf. The default queue is the main queue.
+ 
+ If any other concurrency model is set, this property will be NULL. Setting this property will correctly retain and release the queue.
+ */
+@property(nonatomic) dispatch_queue_t dispatchQueue;
 
 /** Sets the direction of the binding. The direction specifies how the data is propagated when changes occur.
  
