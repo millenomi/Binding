@@ -128,6 +128,13 @@
     
     [newOptions->valueTransformer autorelease];
     newOptions->valueTransformer = [valueTransformer retain];
+    
+    if (newOptions->dispatchQueue && newOptions->dispatchQueue != dispatchQueue)
+        dispatch_release(newOptions->dispatchQueue);
+    if (dispatchQueue)
+        dispatch_retain(dispatchQueue);
+    
+    newOptions->dispatchQueue = dispatchQueue;
         
     return newOptions;
 }
