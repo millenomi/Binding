@@ -34,7 +34,7 @@
  @param object The source object to bind.
  @param otherKey The key path of the target object to bind.
  @param otherObject The target object to bind. The value of its key path will be overwritten as part of invoking this method with the value of the source object's key path.
- @param options The options to this binding. For a discussion of how they affect the binding, see the ILBindingOptions class documentation.
+ @param options The options to this binding. For a discussion of how they affect the binding, see the ILBindingOptions class documentation. You can pass nil; this is the same as passing an options object with all values equal to the defaults.
  
  */
 - (id) initWithKeyPath:(NSString*) key ofSourceObject:(id) object boundToKeyPath:(NSString*) otherKey ofTargetObject:(id) otherObject options:(ILBindingOptions*) options;

@@ -48,7 +48,7 @@
 {
     self = [super init];
     if (self) {        
-        self.options = o;
+        self.options = o ?: [ILBindingOptions optionsWithDefaultValues];
         
         self.sourceObject = source;
         self.sourceKeyPath = sourcePath;
