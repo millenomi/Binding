@@ -14,10 +14,10 @@ To bind two key paths together, simply create a `ILBinding` object by specifying
 
 	self.binding = [ILBinding
 					bindingWithKeyPath:@"someKeyPath"
-					ofSourceObject:self.model
-					boundToKeyPath:@"aView.someOtherKeyPath"
-					ofTargetObject:self
-					options:nil];
+					    ofSourceObject:self.model
+					    boundToKeyPath:@"aView.someOtherKeyPath"
+					    ofTargetObject:self
+					           options:nil];
 
 As you can see, a binding takes a *source* object and binds one of its key paths to the key path of the *target* object. Typically, you will pass a model object as the source and a controller or view object as the target. The default options make distinguishing source and target a bit moot, as they sync every change both ways, but you can pass a `ILBindingOptions` object to the "`options:`…" part of the method to change how the binding behaves, which can make the distinction relevant.
 
