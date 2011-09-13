@@ -55,7 +55,7 @@
 
 - (NSThread *)allowedThread;
 {
-    if (!allowedThread)
+    if (!allowedThread && self.concurrencyModel == kILBindingConcurrencyAllowedThread)
         return [NSThread mainThread];
     
     return allowedThread;
@@ -74,7 +74,7 @@
 
 - (dispatch_queue_t)dispatchQueue;
 {
-    if (!dispatchQueue)
+    if (!dispatchQueue && self.concurrencyModel == kILBindingConcurrencyDispatchOnQueue)
         return dispatch_get_main_queue();
     
     return dispatchQueue;
