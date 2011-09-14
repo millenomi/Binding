@@ -57,7 +57,7 @@ Note that `UIControl`s are not supported in any other location (as source object
 
 ## Design
 
-Similarly to what happens on Mac OS X, bindings are conceptually "leaf" objects that do not retain their reference. Unlike Mac OS X, however, a binding isn't just a relationship between objects, but it's reified into an actual (`ILBinding`) object itself, so it can be queried or manipulated later. This is intended to simplify debugging operations involving bindings, one of Mac OS X's greatest weaknesses.
+Similarly to what happens on Mac OS X, bindings are conceptually "leaf" objects that do not retain their referenced object. Unlike Mac OS X, however, a binding isn't just a relationship between objects, but it's reified into an actual (`ILBinding`) object itself, so it can be queried or manipulated later. This is intended to simplify debugging operations involving bindings, one of Mac OS X's greatest weaknesses.
 
 The full Bindings Editor stack is available as part of the library; you can create or manipulate "binding definitions" programmatically, and save, edit and load binding definition files produced by the Editor at your leisure. See the `ILBindingDefinition` class and its class methods for more.
 
