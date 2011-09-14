@@ -25,12 +25,12 @@ Just like bindings on Mac OS X, neither object is retained. Before either object
 
 ### Bindings Sets
 
-Since you typically work with a *set* of bindings, rather than just one, it's more convenient to use the included Bindings Editor application to create a bindings file, put that file into a project, then use the `ILBindingsSet` class to load all bindings at once when needed, for example:
+Since you typically work with a *set* of bindings, rather than just one, it's more convenient to use the included Bindings Editor application to describe which bindings you will need, put that definition file into a project, then use the `ILBindingsSet` class to create all bindings at once when needed. For example:
 
 	// BindingsFile.ilabs-bindings was created with the editor and included in this app as a resource.
 	self.bindingsSet = [ILBindingsSet bindingsSetNamed:@"BindingsFile" owner:self];
 
-Typically, you bind a lot of different objects; you specify which objects to bind in the file with key paths starting from the owner passed above. For example, to bind self.importancyValue to the value property of self.slider, you specify in the bindings file:
+You specify which objects are bound in the definition file using key paths that will be evaluated starting from the *owner object* passed above. For example, given `self` the owner object, to bind `self.importancyValue` to the `value` property of `self.slider`, you specify in the bindings file:
 
 * Source object: `self`
 * Source bound key path: `importancyValue`
@@ -40,6 +40,8 @@ Typically, you bind a lot of different objects; you specify which objects to bin
 The object key paths are resolved only once, when you load the bindings set, and are not watched. The bound paths are watched via KVO.
 
 You must unbind all bindings created by the set, just like in the programmatic case above. To do so, you can use the bindings set convenience method `-unbind`, which will perform this operation on all bindings in the set.
+
+Not all options are available to bindings created using the definition file. You can, however, mix and match loading from a file and creating programmatically as you need.
 
 ### Working with UIControls
 

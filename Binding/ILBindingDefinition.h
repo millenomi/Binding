@@ -40,9 +40,9 @@ typedef enum {
 /**
  Creates a binding from this definition.
  
- @param source The source object. If the definition contains a path from the source, this object will be queried for the value of that path, then that new value will become the source object for the binding.
- @param target The target object. If the definition contains a path from the target, this object will be queried for the value of that path, then that new value will become the target object for the binding.
- @param opts The options for this binding. The binding will use the values in this options object for all options not covered by the definition.
+ @param source The source object. If the definition contains a path to the source, this object will be queried for the value of that path, then that new value will become the source object for the binding.
+ @param target The target object. If the definition contains a path to the target, this object will be queried for the value of that path, then that new value will become the target object for the binding.
+ @param opts The options for this binding. The binding will use the values in this options object for all options not specified by the definition. You can pass nil to use default values instead.
  */
 - (ILBinding*) bindingWithSourceObject:(id) source targetObject:(id) target options:(ILBindingOptions*) opts;
 
